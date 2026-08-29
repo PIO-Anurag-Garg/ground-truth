@@ -2,3 +2,7 @@ __pycache__/
 *.pyc
 .venv/
 out/cache/
+out/verdicts/
+out/DRIFT_REPORT.md
+out/drift.xlsx
+out/drift.json
