@@ -1,4 +1,4 @@
 rule_id,difficulty,rule_text,minutes,your_verdict,citation_file,citation_line
-BR-011,"easy   - one formatting rule, one program","The full name displayed in the Name column shall be formatted as family name, followed by a comma and a space, followed by the given name.",,,,
-BR-033,"medium - a validation message, buried in a procedure","The Salary field must not be blank. If it is blank when the user presses Enter, the system shall display the message: Salary cannot be blank.",,,,
-BR-068,hard   - a display condition that spans two programs,"On both the Department Enquiry screen and the Employee List screen, the scrollable list shall only be displayed when there is at least one record to show. If there are no records, the list area shall remain blank.",,,,
+BR-011,"easy   - one formatting rule, one program","The full name displayed in the Name column shall be formatted as family name, followed by a comma and a space, followed by the given name.",not attempted,,,
+BR-033,"medium - a validation message, buried in a procedure","The Salary field must not be blank. If it is blank when the user presses Enter, the system shall display the message: Salary cannot be blank.",not attempted,,,
+BR-068,hard   - a display condition that spans two programs,"On both the Department Enquiry screen and the Employee List screen, the scrollable list shall only be displayed when there is at least one record to show. If there are no records, the list area shall remain blank.",>20,ABANDONED,,
