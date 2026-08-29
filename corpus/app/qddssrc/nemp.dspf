@@ -39,7 +39,7 @@
      A                                 13  7'Phone'
      A                                      DSPATR(UL)
      A                                      COLOR(WHT)
-     A            XTEL           4A  B 13 14
+     A            XTEL           5A  B 13 14
 
      A            XERR          50A  O 15 14COLOR(RED)
      A          R HEADER_FMT

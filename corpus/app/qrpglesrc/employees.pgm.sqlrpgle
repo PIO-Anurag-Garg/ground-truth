@@ -64,6 +64,8 @@ Dow (Not Exit);
   Select;
     When (Funkey = F12);
       Exit = *On;
+    When (Funkey = F05);
+      LoadSubfile();
     When (Funkey = ENTER);
       HandleInputs();
 

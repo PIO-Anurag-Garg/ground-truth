@@ -95,7 +95,7 @@ Dcl-Proc HandleInsert;
 
   // We don't actually care about these fields.
   newEmp.BIRTHDATE = %Date;
-  newEmp.EDLEVEL = 0;
+  newEmp.EDLEVEL = 12;
   newEmp.BONUS = 0;
   newEmp.COMM = 0;
 
@@ -118,10 +118,6 @@ Dcl-Proc GetError;
 
   if (XFIRST = '');
     return 'First name cannot be blank';
-  endif;
-
-  if (XINIT = '');
-    return 'Middle initial cannot be blank';
   endif;
 
   if (XLAST = '');
@@ -147,6 +143,11 @@ Dcl-Proc GetError;
     on-error;
       return 'Salary must be a number';
     endmon;
+
+    // 2015-03 HR policy: no new hire may be created below the minimum band.
+    if (salaryNumber < 30000);
+      return 'Salary below minimum band';
+    endif;
   endif;
 
   if (XTEL = '');

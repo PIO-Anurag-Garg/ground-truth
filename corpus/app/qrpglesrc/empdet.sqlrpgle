@@ -43,7 +43,7 @@ dcl-proc getDeptDetail export;
     select
       rtrim(deptname),
       coalesce(location, 'N/A'),
-      (select sum(salary + bonus + comm)
+      (select sum(salary)
        from employee
        where workdept = :deptno)
     into
