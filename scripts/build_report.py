@@ -15,6 +15,14 @@ import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment
 from openpyxl.utils import get_column_letter
 
+# Windows consoles default to cp1252 and cannot print the arrows used in the
+# report body. The files are written as UTF-8 regardless; only the echo needed
+# guarding.
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+
 # Verdict ordering for the report
 VERDICT_ORDER = ["DRIFTED", "UNDOCUMENTED", "UNVERIFIABLE", "CONFIRMED",
                  "MISSING_VERDICT"]

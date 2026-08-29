@@ -45,7 +45,7 @@ approval before proceeding. The audit will never skip a gate.
 | File | Contents |
 |---|---|
 | `out/rules.json` | All extracted rules |
-| `out/worklist.json` | Rule clusters with hint files |
+| `out/worklist.json` | Rule clusters with candidate files |
 | `out/verdicts/<cluster_id>.json` | Per-cluster verdict files |
 | `out/drift.json` | Merged audit results |
 | `out/SPEC_CORRECTED.md` | Corrected rule text for all DRIFTED rules |
