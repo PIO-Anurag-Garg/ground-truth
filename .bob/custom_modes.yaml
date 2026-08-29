@@ -1,4 +1,4 @@
-custom_modes:
+customModes:
   - slug: spec-auditor
     name: Spec Auditor
     roleDefinition: >
@@ -11,7 +11,10 @@ custom_modes:
       outputs under the out/ directory.
     groups:
       - read
+      - - edit
+        - fileRegex: "^out[\/]"
+          description: Audit outputs only. Never source code, never the specification under audit.
+      - execute
       - skill
       - subagent
       - todo
-      - execute
