@@ -12,7 +12,7 @@ customModes:
     groups:
       - read
       - - edit
-        - fileRegex: "^out[\/]"
+        - fileRegex: "^out"
           description: Audit outputs only. Never source code, never the specification under audit.
       - execute
       - skill
