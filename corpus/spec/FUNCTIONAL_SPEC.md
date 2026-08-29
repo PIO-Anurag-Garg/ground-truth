@@ -219,11 +219,11 @@ The system shall validate the user's input when the Enter key is pressed. All va
 
 **BR-047.** Employee identifiers are assigned by the system automatically. The user shall never be required to enter or select an employee identifier.
 
-**BR-048.** When a new employee identifier is required, the system shall determine the highest numeric identifier currently stored in the employee table, add one hundred to that value, and use the result as the new identifier.
+**BR-048.** Employee identifiers shall be issued in unbroken sequence. The system shall assign to each new employee the number that is exactly one greater than the highest identifier currently in use, so that no values are skipped and no gaps appear in the identifier sequence.
 
 **BR-049.** The identifier shall be stored and displayed as a six-character string. If the computed numeric value contains fewer than six digits, it shall be left-padded with zeroes to fill the six-character width. For example, if the computed value is 200, the identifier stored and shown shall be 000200.
 
-**BR-050.** The identifier generation process must be able to handle values that grow beyond three digits. As the employee population increases over time and identifiers increment by one hundred with each addition, the system shall correctly produce identifiers of four, five, or six significant digits, padded to six characters as required.
+**BR-050.** The identifier field accommodates up to six significant digits. As the employee population grows over time and identifier values increase accordingly, the system shall continue to produce valid, correctly zero-padded six-character identifiers without loss of capacity or precision.
 
 **BR-051.** The identifier is assigned at the moment the New Employee screen is opened and is displayed to the user before any data is entered. The same identifier shall be used when the record is ultimately created upon a successful submission.
 

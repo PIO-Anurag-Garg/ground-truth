@@ -1,0 +1,682 @@
+{
+  "note": "candidate_files is a best-effort ordering, not a restriction. The verifying agent must search the whole source root whenever the ordering does not lead it to the behaviour a rule describes.",
+  "source_root": "corpus/app",
+  "cluster_count": 23,
+  "clusters": [
+    {
+      "cluster_id": "C01",
+      "section": "2.2 EMPLOYEE",
+      "rule_ids": [
+        "BR-001"
+      ],
+      "candidate_files": [
+        "corpus/app/qsqlsrc/employee.table",
+        "corpus/app/qsqlsrc/department.table",
+        "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+        "corpus/app/qsqlsrc/popemp.sqlprc",
+        "corpus/app/qtestsrc/empdet.test.sqlrpgle",
+        "corpus/app/qddssrc/depts.dspf",
+        "corpus/app/qddssrc/emps.dspf",
+        "corpus/app/qddssrc/nemp.dspf",
+        "corpus/app/qrpgleref/constants.rpgleinc",
+        "corpus/app/qrpgleref/empdet.rpgleinc",
+        "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/empdet.sqlrpgle",
+        "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+        "corpus/app/qsqlsrc/popdept.sqlprc"
+      ],
+      "ranking_confidence": "LOW",
+      "hint_terms": [
+        "PHONENO"
+      ]
+    },
+    {
+      "cluster_id": "C02",
+      "section": "3.2 Content and Layout",
+      "rule_ids": [
+        "BR-002",
+        "BR-003",
+        "BR-004",
+        "BR-005"
+      ],
+      "candidate_files": [
+        "corpus/app/qddssrc/depts.dspf",
+        "corpus/app/qddssrc/emps.dspf",
+        "corpus/app/qddssrc/nemp.dspf",
+        "corpus/app/qsqlsrc/department.table",
+        "corpus/app/qsqlsrc/employee.table",
+        "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/empdet.sqlrpgle",
+        "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+        "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+        "corpus/app/qtestsrc/empdet.test.sqlrpgle",
+        "corpus/app/qrpgleref/constants.rpgleinc",
+        "corpus/app/qrpgleref/empdet.rpgleinc",
+        "corpus/app/qsqlsrc/popdept.sqlprc",
+        "corpus/app/qsqlsrc/popemp.sqlprc"
+      ],
+      "ranking_confidence": "LOW",
+      "hint_terms": []
+    },
+    {
+      "cluster_id": "C03",
+      "section": "3.3 Available Options",
+      "rule_ids": [
+        "BR-006",
+        "BR-007",
+        "BR-008"
+      ],
+      "candidate_files": [
+        "corpus/app/qddssrc/depts.dspf",
+        "corpus/app/qddssrc/emps.dspf",
+        "corpus/app/qddssrc/nemp.dspf",
+        "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+        "corpus/app/qrpgleref/constants.rpgleinc",
+        "corpus/app/qrpgleref/empdet.rpgleinc",
+        "corpus/app/qrpglesrc/empdet.sqlrpgle",
+        "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+        "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+        "corpus/app/qsqlsrc/department.table",
+        "corpus/app/qsqlsrc/employee.table",
+        "corpus/app/qsqlsrc/popdept.sqlprc",
+        "corpus/app/qsqlsrc/popemp.sqlprc",
+        "corpus/app/qtestsrc/empdet.test.sqlrpgle"
+      ],
+      "ranking_confidence": "LOW",
+      "hint_terms": [
+        "'5'",
+        "'8'"
+      ]
+    },
+    {
+      "cluster_id": "C04",
+      "section": "3.4 Function Keys",
+      "rule_ids": [
+        "BR-009"
+      ],
+      "candidate_files": [
+        "corpus/app/qddssrc/depts.dspf",
+        "corpus/app/qddssrc/emps.dspf",
+        "corpus/app/qddssrc/nemp.dspf",
+        "corpus/app/qrpgleref/constants.rpgleinc",
+        "corpus/app/qrpgleref/empdet.rpgleinc",
+        "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/empdet.sqlrpgle",
+        "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+        "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+        "corpus/app/qsqlsrc/department.table",
+        "corpus/app/qsqlsrc/employee.table",
+        "corpus/app/qsqlsrc/popdept.sqlprc",
+        "corpus/app/qsqlsrc/popemp.sqlprc",
+        "corpus/app/qtestsrc/empdet.test.sqlrpgle"
+      ],
+      "ranking_confidence": "LOW",
+      "hint_terms": [
+        "F3=Exit"
+      ]
+    },
+    {
+      "cluster_id": "C05",
+      "section": "4.2 Content and Layout",
+      "rule_ids": [
+        "BR-010",
+        "BR-011",
+        "BR-012",
+        "BR-013",
+        "BR-014"
+      ],
+      "candidate_files": [
+        "corpus/app/qddssrc/depts.dspf",
+        "corpus/app/qddssrc/emps.dspf",
+        "corpus/app/qddssrc/nemp.dspf",
+        "corpus/app/qsqlsrc/department.table",
+        "corpus/app/qsqlsrc/employee.table",
+        "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/empdet.sqlrpgle",
+        "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+        "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+        "corpus/app/qtestsrc/empdet.test.sqlrpgle",
+        "corpus/app/qrpgleref/constants.rpgleinc",
+        "corpus/app/qrpgleref/empdet.rpgleinc",
+        "corpus/app/qsqlsrc/popdept.sqlprc",
+        "corpus/app/qsqlsrc/popemp.sqlprc"
+      ],
+      "ranking_confidence": "LOW",
+      "hint_terms": []
+    },
+    {
+      "cluster_id": "C06",
+      "section": "4.3 Salary Total",
+      "rule_ids": [
+        "BR-015",
+        "BR-016",
+        "BR-017"
+      ],
+      "candidate_files": [
+        "corpus/app/qddssrc/depts.dspf",
+        "corpus/app/qddssrc/emps.dspf",
+        "corpus/app/qddssrc/nemp.dspf",
+        "corpus/app/qsqlsrc/department.table",
+        "corpus/app/qsqlsrc/employee.table",
+        "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/empdet.sqlrpgle",
+        "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+        "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+        "corpus/app/qtestsrc/empdet.test.sqlrpgle",
+        "corpus/app/qrpgleref/constants.rpgleinc",
+        "corpus/app/qrpgleref/empdet.rpgleinc",
+        "corpus/app/qsqlsrc/popdept.sqlprc",
+        "corpus/app/qsqlsrc/popemp.sqlprc"
+      ],
+      "ranking_confidence": "LOW",
+      "hint_terms": []
+    },
+    {
+      "cluster_id": "C07",
+      "section": "4.4 Function Keys",
+      "rule_ids": [
+        "BR-018"
+      ],
+      "candidate_files": [
+        "corpus/app/qddssrc/emps.dspf",
+        "corpus/app/qddssrc/nemp.dspf",
+        "corpus/app/qddssrc/depts.dspf",
+        "corpus/app/qrpgleref/constants.rpgleinc",
+        "corpus/app/qrpgleref/empdet.rpgleinc",
+        "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/empdet.sqlrpgle",
+        "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+        "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+        "corpus/app/qsqlsrc/department.table",
+        "corpus/app/qsqlsrc/employee.table",
+        "corpus/app/qsqlsrc/popdept.sqlprc",
+        "corpus/app/qsqlsrc/popemp.sqlprc",
+        "corpus/app/qtestsrc/empdet.test.sqlrpgle"
+      ],
+      "ranking_confidence": "LOW",
+      "hint_terms": [
+        "F12=Back"
+      ]
+    },
+    {
+      "cluster_id": "C08",
+      "section": "5.2 Content and Layout",
+      "rule_ids": [
+        "BR-019",
+        "BR-020",
+        "BR-021"
+      ],
+      "candidate_files": [
+        "corpus/app/qddssrc/depts.dspf",
+        "corpus/app/qddssrc/emps.dspf",
+        "corpus/app/qddssrc/nemp.dspf",
+        "corpus/app/qsqlsrc/popdept.sqlprc",
+        "corpus/app/qsqlsrc/popemp.sqlprc",
+        "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/empdet.sqlrpgle",
+        "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+        "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+        "corpus/app/qtestsrc/empdet.test.sqlrpgle",
+        "corpus/app/qrpgleref/constants.rpgleinc",
+        "corpus/app/qrpgleref/empdet.rpgleinc",
+        "corpus/app/qsqlsrc/department.table",
+        "corpus/app/qsqlsrc/employee.table"
+      ],
+      "ranking_confidence": "LOW",
+      "hint_terms": []
+    },
+    {
+      "cluster_id": "C09",
+      "section": "5.3 Field Descriptions",
+      "rule_ids": [
+        "BR-022",
+        "BR-023",
+        "BR-024",
+        "BR-025",
+        "BR-026",
+        "BR-027"
+      ],
+      "candidate_files": [
+        "corpus/app/qsqlsrc/department.table",
+        "corpus/app/qsqlsrc/employee.table",
+        "corpus/app/qddssrc/depts.dspf",
+        "corpus/app/qddssrc/emps.dspf",
+        "corpus/app/qddssrc/nemp.dspf",
+        "corpus/app/qrpgleref/constants.rpgleinc",
+        "corpus/app/qrpgleref/empdet.rpgleinc",
+        "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/empdet.sqlrpgle",
+        "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+        "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+        "corpus/app/qsqlsrc/popdept.sqlprc",
+        "corpus/app/qsqlsrc/popemp.sqlprc",
+        "corpus/app/qtestsrc/empdet.test.sqlrpgle"
+      ],
+      "ranking_confidence": "LOW",
+      "hint_terms": []
+    },
+    {
+      "cluster_id": "C10",
+      "section": "5.4 Validation Rules",
+      "rule_ids": [
+        "BR-028",
+        "BR-029",
+        "BR-030",
+        "BR-031",
+        "BR-032",
+        "BR-033",
+        "BR-034",
+        "BR-035",
+        "BR-036",
+        "BR-037"
+      ],
+      "candidate_files": [
+        "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+        "corpus/app/qddssrc/depts.dspf",
+        "corpus/app/qddssrc/emps.dspf",
+        "corpus/app/qddssrc/nemp.dspf",
+        "corpus/app/qsqlsrc/department.table",
+        "corpus/app/qsqlsrc/employee.table",
+        "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/empdet.sqlrpgle",
+        "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+        "corpus/app/qtestsrc/empdet.test.sqlrpgle",
+        "corpus/app/qrpgleref/constants.rpgleinc",
+        "corpus/app/qrpgleref/empdet.rpgleinc",
+        "corpus/app/qsqlsrc/popdept.sqlprc",
+        "corpus/app/qsqlsrc/popemp.sqlprc"
+      ],
+      "ranking_confidence": "HIGH",
+      "hint_terms": [
+        "First name cannot be blank",
+        "Middle initial cannot be blank",
+        "Last name cannot be blank",
+        "Department cannot be blank",
+        "Job cannot be blank",
+        "Salary cannot be blank",
+        "Salary must be a number",
+        "Phone cannot be blank"
+      ]
+    },
+    {
+      "cluster_id": "C11",
+      "section": "5.5 Error Message Display",
+      "rule_ids": [
+        "BR-038",
+        "BR-039",
+        "BR-040"
+      ],
+      "candidate_files": [
+        "corpus/app/qddssrc/depts.dspf",
+        "corpus/app/qddssrc/emps.dspf",
+        "corpus/app/qddssrc/nemp.dspf",
+        "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/empdet.sqlrpgle",
+        "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+        "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+        "corpus/app/qtestsrc/empdet.test.sqlrpgle",
+        "corpus/app/qrpgleref/constants.rpgleinc",
+        "corpus/app/qrpgleref/empdet.rpgleinc",
+        "corpus/app/qsqlsrc/department.table",
+        "corpus/app/qsqlsrc/employee.table",
+        "corpus/app/qsqlsrc/popdept.sqlprc",
+        "corpus/app/qsqlsrc/popemp.sqlprc"
+      ],
+      "ranking_confidence": "LOW",
+      "hint_terms": []
+    },
+    {
+      "cluster_id": "C12",
+      "section": "5.6 Successful Submission",
+      "rule_ids": [
+        "BR-041",
+        "BR-042",
+        "BR-043",
+        "BR-044"
+      ],
+      "candidate_files": [
+        "corpus/app/qddssrc/depts.dspf",
+        "corpus/app/qddssrc/emps.dspf",
+        "corpus/app/qddssrc/nemp.dspf",
+        "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+        "corpus/app/qsqlsrc/popdept.sqlprc",
+        "corpus/app/qsqlsrc/popemp.sqlprc",
+        "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/empdet.sqlrpgle",
+        "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+        "corpus/app/qtestsrc/empdet.test.sqlrpgle",
+        "corpus/app/qrpgleref/constants.rpgleinc",
+        "corpus/app/qrpgleref/empdet.rpgleinc",
+        "corpus/app/qsqlsrc/department.table",
+        "corpus/app/qsqlsrc/employee.table"
+      ],
+      "ranking_confidence": "LOW",
+      "hint_terms": [
+        "Unable to create employee",
+        "Unable to automatically generate a new ID"
+      ]
+    },
+    {
+      "cluster_id": "C13",
+      "section": "5.7 Function Keys",
+      "rule_ids": [
+        "BR-045",
+        "BR-046"
+      ],
+      "candidate_files": [
+        "corpus/app/qddssrc/emps.dspf",
+        "corpus/app/qddssrc/nemp.dspf",
+        "corpus/app/qddssrc/depts.dspf",
+        "corpus/app/qrpgleref/constants.rpgleinc",
+        "corpus/app/qrpgleref/empdet.rpgleinc",
+        "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/empdet.sqlrpgle",
+        "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+        "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+        "corpus/app/qsqlsrc/department.table",
+        "corpus/app/qsqlsrc/employee.table",
+        "corpus/app/qsqlsrc/popdept.sqlprc",
+        "corpus/app/qsqlsrc/popemp.sqlprc",
+        "corpus/app/qtestsrc/empdet.test.sqlrpgle"
+      ],
+      "ranking_confidence": "LOW",
+      "hint_terms": [
+        "F12=Back"
+      ]
+    },
+    {
+      "cluster_id": "C14",
+      "section": "6. Employee Identifier Assignment",
+      "rule_ids": [
+        "BR-047",
+        "BR-048",
+        "BR-049",
+        "BR-050",
+        "BR-051"
+      ],
+      "candidate_files": [
+        "corpus/app/qddssrc/depts.dspf",
+        "corpus/app/qddssrc/emps.dspf",
+        "corpus/app/qddssrc/nemp.dspf",
+        "corpus/app/qsqlsrc/department.table",
+        "corpus/app/qsqlsrc/employee.table",
+        "corpus/app/qsqlsrc/popdept.sqlprc",
+        "corpus/app/qsqlsrc/popemp.sqlprc",
+        "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/empdet.sqlrpgle",
+        "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+        "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+        "corpus/app/qtestsrc/empdet.test.sqlrpgle",
+        "corpus/app/qrpgleref/constants.rpgleinc",
+        "corpus/app/qrpgleref/empdet.rpgleinc"
+      ],
+      "ranking_confidence": "LOW",
+      "hint_terms": []
+    },
+    {
+      "cluster_id": "C15",
+      "section": "7.1 Department Population Routine",
+      "rule_ids": [
+        "BR-052",
+        "BR-053",
+        "BR-054"
+      ],
+      "candidate_files": [
+        "corpus/app/qsqlsrc/department.table",
+        "corpus/app/qsqlsrc/employee.table",
+        "corpus/app/qsqlsrc/popdept.sqlprc",
+        "corpus/app/qsqlsrc/popemp.sqlprc",
+        "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/empdet.sqlrpgle",
+        "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+        "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+        "corpus/app/qtestsrc/empdet.test.sqlrpgle",
+        "corpus/app/qddssrc/depts.dspf",
+        "corpus/app/qddssrc/emps.dspf",
+        "corpus/app/qddssrc/nemp.dspf",
+        "corpus/app/qrpgleref/constants.rpgleinc",
+        "corpus/app/qrpgleref/empdet.rpgleinc"
+      ],
+      "ranking_confidence": "LOW",
+      "hint_terms": []
+    },
+    {
+      "cluster_id": "C16",
+      "section": "7.2 Employee Population Routine",
+      "rule_ids": [
+        "BR-055",
+        "BR-056",
+        "BR-057",
+        "BR-058",
+        "BR-059",
+        "BR-060",
+        "BR-061",
+        "BR-062"
+      ],
+      "candidate_files": [
+        "corpus/app/qsqlsrc/department.table",
+        "corpus/app/qsqlsrc/employee.table",
+        "corpus/app/qsqlsrc/popdept.sqlprc",
+        "corpus/app/qsqlsrc/popemp.sqlprc",
+        "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/empdet.sqlrpgle",
+        "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+        "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+        "corpus/app/qtestsrc/empdet.test.sqlrpgle",
+        "corpus/app/qddssrc/depts.dspf",
+        "corpus/app/qddssrc/emps.dspf",
+        "corpus/app/qddssrc/nemp.dspf",
+        "corpus/app/qrpgleref/constants.rpgleinc",
+        "corpus/app/qrpgleref/empdet.rpgleinc"
+      ],
+      "ranking_confidence": "LOW",
+      "hint_terms": []
+    },
+    {
+      "cluster_id": "C17",
+      "section": "8.1 Navigation and Screen Flow",
+      "rule_ids": [
+        "BR-063",
+        "BR-064",
+        "BR-065",
+        "BR-066",
+        "BR-067"
+      ],
+      "candidate_files": [
+        "corpus/app/qddssrc/depts.dspf",
+        "corpus/app/qddssrc/emps.dspf",
+        "corpus/app/qddssrc/nemp.dspf",
+        "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+        "corpus/app/qsqlsrc/popdept.sqlprc",
+        "corpus/app/qsqlsrc/popemp.sqlprc",
+        "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+        "corpus/app/qrpgleref/constants.rpgleinc",
+        "corpus/app/qrpgleref/empdet.rpgleinc",
+        "corpus/app/qrpglesrc/empdet.sqlrpgle",
+        "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+        "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+        "corpus/app/qsqlsrc/department.table",
+        "corpus/app/qsqlsrc/employee.table",
+        "corpus/app/qtestsrc/empdet.test.sqlrpgle"
+      ],
+      "ranking_confidence": "LOW",
+      "hint_terms": [
+        "'5'",
+        "'8'"
+      ]
+    },
+    {
+      "cluster_id": "C18",
+      "section": "8.2 Subfile Behaviour",
+      "rule_ids": [
+        "BR-068",
+        "BR-069"
+      ],
+      "candidate_files": [
+        "corpus/app/qddssrc/depts.dspf",
+        "corpus/app/qddssrc/emps.dspf",
+        "corpus/app/qddssrc/nemp.dspf",
+        "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/empdet.sqlrpgle",
+        "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+        "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+        "corpus/app/qtestsrc/empdet.test.sqlrpgle",
+        "corpus/app/qrpgleref/constants.rpgleinc",
+        "corpus/app/qrpgleref/empdet.rpgleinc",
+        "corpus/app/qsqlsrc/department.table",
+        "corpus/app/qsqlsrc/employee.table",
+        "corpus/app/qsqlsrc/popdept.sqlprc",
+        "corpus/app/qsqlsrc/popemp.sqlprc"
+      ],
+      "ranking_confidence": "LOW",
+      "hint_terms": []
+    },
+    {
+      "cluster_id": "C19",
+      "section": "8.3 Error Display",
+      "rule_ids": [
+        "BR-070",
+        "BR-071"
+      ],
+      "candidate_files": [
+        "corpus/app/qddssrc/depts.dspf",
+        "corpus/app/qddssrc/emps.dspf",
+        "corpus/app/qddssrc/nemp.dspf",
+        "corpus/app/qrpgleref/constants.rpgleinc",
+        "corpus/app/qrpgleref/empdet.rpgleinc",
+        "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/empdet.sqlrpgle",
+        "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+        "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+        "corpus/app/qsqlsrc/department.table",
+        "corpus/app/qsqlsrc/employee.table",
+        "corpus/app/qsqlsrc/popdept.sqlprc",
+        "corpus/app/qsqlsrc/popemp.sqlprc",
+        "corpus/app/qtestsrc/empdet.test.sqlrpgle"
+      ],
+      "ranking_confidence": "LOW",
+      "hint_terms": []
+    },
+    {
+      "cluster_id": "C20",
+      "section": "8.4 Read-Only Fields",
+      "rule_ids": [
+        "BR-072",
+        "BR-073"
+      ],
+      "candidate_files": [
+        "corpus/app/qddssrc/depts.dspf",
+        "corpus/app/qddssrc/emps.dspf",
+        "corpus/app/qddssrc/nemp.dspf",
+        "corpus/app/qsqlsrc/popdept.sqlprc",
+        "corpus/app/qsqlsrc/popemp.sqlprc",
+        "corpus/app/qrpgleref/constants.rpgleinc",
+        "corpus/app/qrpgleref/empdet.rpgleinc",
+        "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/empdet.sqlrpgle",
+        "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+        "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+        "corpus/app/qsqlsrc/department.table",
+        "corpus/app/qsqlsrc/employee.table",
+        "corpus/app/qtestsrc/empdet.test.sqlrpgle"
+      ],
+      "ranking_confidence": "LOW",
+      "hint_terms": []
+    },
+    {
+      "cluster_id": "C21",
+      "section": "8.5 Record Scope",
+      "rule_ids": [
+        "BR-074"
+      ],
+      "candidate_files": [
+        "corpus/app/qddssrc/depts.dspf",
+        "corpus/app/qddssrc/emps.dspf",
+        "corpus/app/qddssrc/nemp.dspf",
+        "corpus/app/qrpgleref/constants.rpgleinc",
+        "corpus/app/qrpgleref/empdet.rpgleinc",
+        "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/empdet.sqlrpgle",
+        "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+        "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+        "corpus/app/qsqlsrc/department.table",
+        "corpus/app/qsqlsrc/employee.table",
+        "corpus/app/qsqlsrc/popdept.sqlprc",
+        "corpus/app/qsqlsrc/popemp.sqlprc",
+        "corpus/app/qtestsrc/empdet.test.sqlrpgle"
+      ],
+      "ranking_confidence": "LOW",
+      "hint_terms": []
+    },
+    {
+      "cluster_id": "C22",
+      "section": "8.6 Transaction Control",
+      "rule_ids": [
+        "BR-075"
+      ],
+      "candidate_files": [
+        "corpus/app/qsqlsrc/popdept.sqlprc",
+        "corpus/app/qsqlsrc/popemp.sqlprc",
+        "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/empdet.sqlrpgle",
+        "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+        "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+        "corpus/app/qtestsrc/empdet.test.sqlrpgle",
+        "corpus/app/qddssrc/depts.dspf",
+        "corpus/app/qddssrc/emps.dspf",
+        "corpus/app/qddssrc/nemp.dspf",
+        "corpus/app/qrpgleref/constants.rpgleinc",
+        "corpus/app/qrpgleref/empdet.rpgleinc",
+        "corpus/app/qsqlsrc/department.table",
+        "corpus/app/qsqlsrc/employee.table"
+      ],
+      "ranking_confidence": "LOW",
+      "hint_terms": []
+    },
+    {
+      "cluster_id": "ORPHAN",
+      "section": "(none -- behaviour not described in the specification)",
+      "rule_ids": [],
+      "candidate_files": [
+        "corpus/app/qddssrc/depts.dspf",
+        "corpus/app/qddssrc/emps.dspf",
+        "corpus/app/qddssrc/nemp.dspf",
+        "corpus/app/qrpgleref/constants.rpgleinc",
+        "corpus/app/qrpgleref/empdet.rpgleinc",
+        "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/empdet.sqlrpgle",
+        "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+        "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+        "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+        "corpus/app/qsqlsrc/department.table",
+        "corpus/app/qsqlsrc/employee.table",
+        "corpus/app/qsqlsrc/popdept.sqlprc",
+        "corpus/app/qsqlsrc/popemp.sqlprc",
+        "corpus/app/qtestsrc/empdet.test.sqlrpgle"
+      ],
+      "ranking_confidence": "LOW",
+      "hint_terms": []
+    }
+  ]
+}

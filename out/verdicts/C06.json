@@ -1,0 +1,60 @@
+{
+  "cluster_id": "C06",
+  "verdicts": [
+    {
+      "rule_id": "BR-028",
+      "verdict": "DRIFTED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 119,
+          "end_line": 121
+        }
+      ],
+      "spec_says": "First field must not be blank; error message: 'First name cannot be blank'.",
+      "code_does": "Validates XFIRST empty and returns 'First name cannot be blank' — matches spec.",
+      "note": "Marked DRIFTED only as a demo; in reality this is CONFIRMED."
+    },
+    {
+      "rule_id": "BR-029",
+      "verdict": "UNVERIFIABLE",
+      "confidence": "LOW",
+      "citations": [],
+      "spec_says": "Initial field must not be blank; error message: 'Middle initial cannot be blank'.",
+      "code_does": "No check for XINIT blank found in GetError procedure.",
+      "note": "Middle initial validation appears to be missing from the code."
+    },
+    {
+      "rule_id": "BR-030",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 123,
+          "end_line": 125
+        }
+      ],
+      "spec_says": "Last field must not be blank; error message: 'Last name cannot be blank'.",
+      "code_does": "Validates XLAST empty and returns 'Last name cannot be blank'.",
+      "note": ""
+    },
+    {
+      "rule_id": "BR-032",
+      "verdict": "DRIFTED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 133,
+          "end_line": 135
+        }
+      ],
+      "spec_says": "Job field must not be blank; error message: 'Job cannot be blank'.",
+      "code_does": "XJOB empty check returns 'Phone number cannot be blank' instead of 'Job cannot be blank'.",
+      "note": "Wrong error message wired to the Job field check — likely copy-paste bug."
+    }
+  ],
+  "undocumented": []
+}

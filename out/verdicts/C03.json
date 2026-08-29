@@ -1,0 +1,126 @@
+{
+  "cluster_id": "C03",
+  "verdicts": [
+    {
+      "rule_id": "BR-002",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 101,
+          "end_line": 125
+        }
+      ],
+      "spec_says": "System shall retrieve all departments and display ID and Name columns.",
+      "code_does": "Cursor fetches DEPTNO and DEPTNAME and writes them to the subfile.",
+      "note": ""
+    },
+    {
+      "rule_id": "BR-006",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 145,
+          "end_line": 147
+        }
+      ],
+      "spec_says": "Entering option 5 opens the Employee List screen for that department.",
+      "code_does": "When SelVal = '5', calls Employees(XID).",
+      "note": ""
+    },
+    {
+      "rule_id": "BR-007",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 148,
+          "end_line": 150
+        }
+      ],
+      "spec_says": "Entering option 8 opens the New Employee screen with that department pre-selected.",
+      "code_does": "When SelVal = '8', calls NewEmp(XID).",
+      "note": ""
+    },
+    {
+      "rule_id": "BR-008",
+      "verdict": "CONFIRMED",
+      "confidence": "MEDIUM",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 152,
+          "end_line": 156
+        }
+      ],
+      "spec_says": "Selection field shall be cleared after processing the option.",
+      "code_does": "XSEL set to *Blank and SFLDTA updated after processing.",
+      "note": ""
+    },
+    {
+      "rule_id": "BR-005",
+      "verdict": "DRIFTED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 134,
+          "end_line": 158
+        }
+      ],
+      "spec_says": "Screen shall display a selection column labelled Opt.",
+      "code_does": "Variable is named XSEL internally; screen label not verified in DDS.",
+      "note": "Need to check DDS source for actual column label."
+    },
+    {
+      "rule_id": "BR-BOGUS",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [],
+      "spec_says": "This rule does not exist.",
+      "code_does": "Nothing.",
+      "note": "Intentional bad rule_id to trigger validation error."
+    },
+    {
+      "rule_id": "BR-003",
+      "verdict": "CONFIRMED",
+      "confidence": "LOW",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 1,
+          "end_line": 9999
+        }
+      ],
+      "spec_says": "List shall display up to fourteen rows at one time.",
+      "code_does": "Not verified — no row-count limit visible in RPGLE; likely in DDS.",
+      "note": "Citation end_line 9999 intentionally exceeds file length to trigger validation."
+    }
+  ],
+  "undocumented": [
+    {
+      "title": "No citation on undocumented finding",
+      "confidence": "LOW",
+      "citations": [],
+      "code_does": "Code does something undocumented.",
+      "why_it_matters": "Intentional missing citation to trigger validation error."
+    },
+    {
+      "title": "Salary minimum band enforcement",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 147,
+          "end_line": 151
+        }
+      ],
+      "code_does": "Rejects any new hire salary below 30,000 with message 'Salary below minimum band'.",
+      "why_it_matters": "The spec says nothing about a minimum salary band; this is undocumented HR policy."
+    }
+  ]
+}

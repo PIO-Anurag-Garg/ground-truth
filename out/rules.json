@@ -1,0 +1,456 @@
+{
+  "spec_file": "corpus\\spec\\FUNCTIONAL_SPEC.docx",
+  "rule_count": 75,
+  "rules": [
+    {
+      "id": "BR-001",
+      "section": "2.2 EMPLOYEE",
+      "text": "The PHONENO column is subject to a database-level constraint. The system must not permit any employee record whose telephone number, when stored, falls outside the range 0000 to 9998 inclusive.",
+      "paragraph_index": 27
+    },
+    {
+      "id": "BR-002",
+      "section": "3.2 Content and Layout",
+      "text": "When the Department Enquiry screen is displayed, the system shall retrieve all departments from the department table and present them in the scrollable list. Each row in the list shall display the department's identifier in the ID column and its name in the Name column.",
+      "paragraph_index": 33
+    },
+    {
+      "id": "BR-003",
+      "section": "3.2 Content and Layout",
+      "text": "The list shall display up to fourteen rows of department data on screen at one time. The user may scroll the list to view additional departments beyond the first fourteen.",
+      "paragraph_index": 34
+    },
+    {
+      "id": "BR-004",
+      "section": "3.2 Content and Layout",
+      "text": "The list shall support a maximum of 9,999 entries.",
+      "paragraph_index": 35
+    },
+    {
+      "id": "BR-005",
+      "section": "3.2 Content and Layout",
+      "text": "The screen shall display a selection column labelled Opt to the left of the ID column. The user enters a single-character option code into this column against any department row in order to act upon that department.",
+      "paragraph_index": 36
+    },
+    {
+      "id": "BR-006",
+      "section": "3.3 Available Options",
+      "text": "Entering the option 5 against a department row and pressing Enter shall cause the system to open the Employee List screen for that department.",
+      "paragraph_index": 38
+    },
+    {
+      "id": "BR-007",
+      "section": "3.3 Available Options",
+      "text": "Entering the option 8 against a department row and pressing Enter shall cause the system to open the New Employee screen with that department pre-selected.",
+      "paragraph_index": 39
+    },
+    {
+      "id": "BR-008",
+      "section": "3.3 Available Options",
+      "text": "After the system has processed a selected option, the selection field for that row shall be cleared so that it no longer shows the option code the user entered.",
+      "paragraph_index": 40
+    },
+    {
+      "id": "BR-009",
+      "section": "3.4 Function Keys",
+      "text": "The key F3=Exit shall be available on this screen. Pressing F3 shall terminate the application and return control to the calling environment.",
+      "paragraph_index": 42
+    },
+    {
+      "id": "BR-010",
+      "section": "4.2 Content and Layout",
+      "text": "The Employee List screen shall display the department's employees in a scrollable list. Each row shall show the employee's identifier in the ID column, the employee's full name in the Name column, and the employee's job code in the Job column.",
+      "paragraph_index": 47
+    },
+    {
+      "id": "BR-011",
+      "section": "4.2 Content and Layout",
+      "text": "The full name displayed in the Name column shall be formatted as family name, followed by a comma and a space, followed by the given name.",
+      "paragraph_index": 48
+    },
+    {
+      "id": "BR-012",
+      "section": "4.2 Content and Layout",
+      "text": "The list shall display up to fourteen rows of employee data on screen at one time. The user may scroll the list to view additional employees beyond the first fourteen.",
+      "paragraph_index": 49
+    },
+    {
+      "id": "BR-013",
+      "section": "4.2 Content and Layout",
+      "text": "The list shall support a maximum of 9,999 entries.",
+      "paragraph_index": 50
+    },
+    {
+      "id": "BR-014",
+      "section": "4.2 Content and Layout",
+      "text": "Only employees whose assigned department matches the department selected on the Department Enquiry screen shall appear in this list. Employees assigned to other departments shall not be shown.",
+      "paragraph_index": 51
+    },
+    {
+      "id": "BR-015",
+      "section": "4.3 Salary Total",
+      "text": "The screen shall display a Total figure above the column headers. This figure represents the sum of salary, bonus, and commission for every employee shown in the list.",
+      "paragraph_index": 53
+    },
+    {
+      "id": "BR-016",
+      "section": "4.3 Salary Total",
+      "text": "The total shall be calculated as the arithmetic sum of each employee's salary plus bonus plus commission, aggregated across all employees in the department. The result shall be displayed to two decimal places.",
+      "paragraph_index": 54
+    },
+    {
+      "id": "BR-017",
+      "section": "4.3 Salary Total",
+      "text": "The total figure shall be presented in a field that can accommodate values up to nine digits before the decimal point.",
+      "paragraph_index": 55
+    },
+    {
+      "id": "BR-018",
+      "section": "4.4 Function Keys",
+      "text": "The key F12=Back shall be available on this screen. Pressing F12 shall close the Employee List screen and return the user to the Department Enquiry screen.",
+      "paragraph_index": 57
+    },
+    {
+      "id": "BR-019",
+      "section": "5.2 Content and Layout",
+      "text": "When the New Employee screen is displayed, the system shall automatically assign and display a new employee identifier in the ID field. This field is for display only; the user may not alter it.",
+      "paragraph_index": 62
+    },
+    {
+      "id": "BR-020",
+      "section": "5.2 Content and Layout",
+      "text": "The Department field shall be pre-populated with the identifier of the department from which the user navigated. This field is for display only; the user may not alter it.",
+      "paragraph_index": 63
+    },
+    {
+      "id": "BR-021",
+      "section": "5.2 Content and Layout",
+      "text": "The screen shall present the following input fields for the user to complete: First, Initial, Last, Job, Salary, and Phone.",
+      "paragraph_index": 64
+    },
+    {
+      "id": "BR-022",
+      "section": "5.3 Field Descriptions",
+      "text": "The First field accepts the employee's given name. It accommodates up to twelve characters.",
+      "paragraph_index": 66
+    },
+    {
+      "id": "BR-023",
+      "section": "5.3 Field Descriptions",
+      "text": "The Initial field accepts the employee's middle initial. It accommodates a single character.",
+      "paragraph_index": 67
+    },
+    {
+      "id": "BR-024",
+      "section": "5.3 Field Descriptions",
+      "text": "The Last field accepts the employee's family name. It accommodates up to fifteen characters.",
+      "paragraph_index": 68
+    },
+    {
+      "id": "BR-025",
+      "section": "5.3 Field Descriptions",
+      "text": "The Job field accepts the employee's job code. It accommodates up to eight characters.",
+      "paragraph_index": 69
+    },
+    {
+      "id": "BR-026",
+      "section": "5.3 Field Descriptions",
+      "text": "The Salary field accepts the employee's base salary as a numeric value. It accommodates up to ten characters as entered by the user, which the system shall interpret as a decimal number with two decimal places.",
+      "paragraph_index": 70
+    },
+    {
+      "id": "BR-027",
+      "section": "5.3 Field Descriptions",
+      "text": "The Phone field accepts the employee's internal telephone extension. It accommodates four characters.",
+      "paragraph_index": 71
+    },
+    {
+      "id": "BR-028",
+      "section": "5.4 Validation Rules",
+      "text": "The First field must not be blank. If it is blank when the user presses Enter, the system shall display the message: First name cannot be blank.",
+      "paragraph_index": 74
+    },
+    {
+      "id": "BR-029",
+      "section": "5.4 Validation Rules",
+      "text": "The Initial field must not be blank. If it is blank when the user presses Enter, the system shall display the message: Middle initial cannot be blank.",
+      "paragraph_index": 75
+    },
+    {
+      "id": "BR-030",
+      "section": "5.4 Validation Rules",
+      "text": "The Last field must not be blank. If it is blank when the user presses Enter, the system shall display the message: Last name cannot be blank.",
+      "paragraph_index": 76
+    },
+    {
+      "id": "BR-031",
+      "section": "5.4 Validation Rules",
+      "text": "The Department field must not be blank. The system shall not permit continuation if no department has been passed to the screen. This condition shall cause the system to display the message: Department cannot be blank.",
+      "paragraph_index": 77
+    },
+    {
+      "id": "BR-032",
+      "section": "5.4 Validation Rules",
+      "text": "The Job field must not be blank. If it is blank when the user presses Enter, the system shall display the message: Job cannot be blank.",
+      "paragraph_index": 78
+    },
+    {
+      "id": "BR-033",
+      "section": "5.4 Validation Rules",
+      "text": "The Salary field must not be blank. If it is blank when the user presses Enter, the system shall display the message: Salary cannot be blank.",
+      "paragraph_index": 79
+    },
+    {
+      "id": "BR-034",
+      "section": "5.4 Validation Rules",
+      "text": "The value entered in the Salary field must be a valid decimal number. If the value cannot be interpreted as a number, the system shall display the message: Salary must be a number.",
+      "paragraph_index": 80
+    },
+    {
+      "id": "BR-035",
+      "section": "5.4 Validation Rules",
+      "text": "The Phone field must not be blank. If it is blank when the user presses Enter, the system shall display the message: Phone cannot be blank.",
+      "paragraph_index": 81
+    },
+    {
+      "id": "BR-036",
+      "section": "5.4 Validation Rules",
+      "text": "The value entered in the Phone field must be a valid whole number. If the value cannot be interpreted as a whole number, the system shall display the message: Phone must be a number.",
+      "paragraph_index": 82
+    },
+    {
+      "id": "BR-037",
+      "section": "5.4 Validation Rules",
+      "text": "The value entered in the Phone field, when stored, must be a digit string that falls within the range 0000 to 9998 inclusive. The database constraint described in BR-001 enforces this at the point of storage.",
+      "paragraph_index": 83
+    },
+    {
+      "id": "BR-038",
+      "section": "5.5 Error Message Display",
+      "text": "Error messages shall be displayed on the New Employee screen in a dedicated message area located below the input fields. Messages shall be shown in red.",
+      "paragraph_index": 85
+    },
+    {
+      "id": "BR-039",
+      "section": "5.5 Error Message Display",
+      "text": "Only one error message shall be displayed at a time. When the user corrects the offending field and presses Enter again, the system shall re-validate from the beginning and either display the next error or proceed with the submission.",
+      "paragraph_index": 86
+    },
+    {
+      "id": "BR-040",
+      "section": "5.5 Error Message Display",
+      "text": "When a submission is rejected owing to a failed validation, all field values the user has already entered shall be retained on screen so that the user need not re-key unaffected fields.",
+      "paragraph_index": 87
+    },
+    {
+      "id": "BR-041",
+      "section": "5.6 Successful Submission",
+      "text": "When the user presses Enter and all validation rules are satisfied, the system shall create a new employee record with the following values:",
+      "paragraph_index": 89
+    },
+    {
+      "id": "BR-042",
+      "section": "5.6 Successful Submission",
+      "text": "Upon successful creation of the employee record, the system shall close the New Employee screen and return the user to the Department Enquiry screen.",
+      "paragraph_index": 102
+    },
+    {
+      "id": "BR-043",
+      "section": "5.6 Successful Submission",
+      "text": "If the system is unable to create the employee record, it shall display the message: Unable to create employee. The user shall remain on the New Employee screen and may attempt to submit again.",
+      "paragraph_index": 103
+    },
+    {
+      "id": "BR-044",
+      "section": "5.6 Successful Submission",
+      "text": "If the system is unable to generate a new employee identifier at the time the screen is opened, it shall display the message: Unable to automatically generate a new ID. The screen shall remain open but the user may not successfully submit a new employee until a valid identifier can be presented.",
+      "paragraph_index": 104
+    },
+    {
+      "id": "BR-045",
+      "section": "5.7 Function Keys",
+      "text": "The keys available on the New Employee screen shall be F12=Back and Enter=Create, as shown on screen.",
+      "paragraph_index": 106
+    },
+    {
+      "id": "BR-046",
+      "section": "5.7 Function Keys",
+      "text": "Pressing F12 shall discard any input entered on the screen and return the user to the Department Enquiry screen. No record shall be created.",
+      "paragraph_index": 107
+    },
+    {
+      "id": "BR-047",
+      "section": "6. Employee Identifier Assignment",
+      "text": "Employee identifiers are assigned by the system automatically. The user shall never be required to enter or select an employee identifier.",
+      "paragraph_index": 109
+    },
+    {
+      "id": "BR-048",
+      "section": "6. Employee Identifier Assignment",
+      "text": "Employee identifiers shall be issued in unbroken sequence. The system shall assign to each new employee the number that is exactly one greater than the highest identifier currently in use, so that no values are skipped and no gaps appear in the identifier sequence.",
+      "paragraph_index": 110
+    },
+    {
+      "id": "BR-049",
+      "section": "6. Employee Identifier Assignment",
+      "text": "The identifier shall be stored and displayed as a six-character string. If the computed numeric value contains fewer than six digits, it shall be left-padded with zeroes to fill the six-character width. For example, if the computed value is 200, the identifier stored and shown shall be 000200.",
+      "paragraph_index": 111
+    },
+    {
+      "id": "BR-050",
+      "section": "6. Employee Identifier Assignment",
+      "text": "The identifier field accommodates up to six significant digits. As the employee population grows over time and identifier values increase accordingly, the system shall continue to produce valid, correctly zero-padded six-character identifiers without loss of capacity or precision.",
+      "paragraph_index": 112
+    },
+    {
+      "id": "BR-051",
+      "section": "6. Employee Identifier Assignment",
+      "text": "The identifier is assigned at the moment the New Employee screen is opened and is displayed to the user before any data is entered. The same identifier shall be used when the record is ultimately created upon a successful submission.",
+      "paragraph_index": 113
+    },
+    {
+      "id": "BR-052",
+      "section": "7.1 Department Population Routine",
+      "text": "The department population routine shall insert five department records into the department table when executed. The five departments created shall be named Admin, IT, Finance, Management, and HR.",
+      "paragraph_index": 117
+    },
+    {
+      "id": "BR-053",
+      "section": "7.1 Department Population Routine",
+      "text": "Each department created by the routine shall be assigned a randomly generated three-character department identifier, a randomly generated six-character manager number, a randomly generated administering department code, and a location value derived from the department identifier.",
+      "paragraph_index": 118
+    },
+    {
+      "id": "BR-054",
+      "section": "7.1 Department Population Routine",
+      "text": "The routine accepts no input parameters and produces no result set. It is a maintenance utility only.",
+      "paragraph_index": 119
+    },
+    {
+      "id": "BR-055",
+      "section": "7.2 Employee Population Routine",
+      "text": "The employee population routine shall insert two hundred employee records into the employee table when executed. It may be called with an optional nationality parameter to influence the characteristics of the generated names; if no nationality is specified, a default nationality shall be applied.",
+      "paragraph_index": 121
+    },
+    {
+      "id": "BR-056",
+      "section": "7.2 Employee Population Routine",
+      "text": "The routine shall determine how many employee records already exist in the table before it begins. It shall generate exactly two hundred new records regardless of how many records are already present. New employee numbers shall be assigned sequentially starting from one greater than the current count of employees.",
+      "paragraph_index": 122
+    },
+    {
+      "id": "BR-057",
+      "section": "7.2 Employee Population Routine",
+      "text": "Each generated employee shall be assigned to a department chosen at random from those currently present in the department table.",
+      "paragraph_index": 123
+    },
+    {
+      "id": "BR-058",
+      "section": "7.2 Employee Population Routine",
+      "text": "Each generated employee shall be assigned a salary in the range 30,000 to 100,000, a bonus in the range 0 to 10,000, and a commission in the range 0 to 5,000. All three values shall be stored to two decimal places.",
+      "paragraph_index": 124
+    },
+    {
+      "id": "BR-059",
+      "section": "7.2 Employee Population Routine",
+      "text": "Each generated employee shall be assigned a hire date falling between 1 January 2023 and approximately ten years thereafter.",
+      "paragraph_index": 125
+    },
+    {
+      "id": "BR-060",
+      "section": "7.2 Employee Population Routine",
+      "text": "Each generated employee shall be assigned a date of birth falling between 1 January 1960 and approximately fifty years thereafter.",
+      "paragraph_index": 126
+    },
+    {
+      "id": "BR-061",
+      "section": "7.2 Employee Population Routine",
+      "text": "Each generated employee shall be assigned an education level in the range 12 to 19 inclusive.",
+      "paragraph_index": 127
+    },
+    {
+      "id": "BR-062",
+      "section": "7.2 Employee Population Routine",
+      "text": "The routine accepts one optional input parameter: a two-character nationality code. This code governs the nationality characteristic used when generating employee names.",
+      "paragraph_index": 128
+    },
+    {
+      "id": "BR-063",
+      "section": "8.1 Navigation and Screen Flow",
+      "text": "The Department Enquiry screen is the initial and root screen of the application. All other screens are subordinate to it and are reached from it.",
+      "paragraph_index": 131
+    },
+    {
+      "id": "BR-064",
+      "section": "8.1 Navigation and Screen Flow",
+      "text": "The Employee List screen is always opened in the context of a specific department. It is not possible to reach the Employee List screen except by choosing option 5 against a department on the Department Enquiry screen.",
+      "paragraph_index": 132
+    },
+    {
+      "id": "BR-065",
+      "section": "8.1 Navigation and Screen Flow",
+      "text": "The New Employee screen is always opened in the context of a specific department. It is not possible to reach the New Employee screen except by choosing option 8 against a department on the Department Enquiry screen. The selected department shall be pre-populated in the Department field and the user shall not be able to change it.",
+      "paragraph_index": 133
+    },
+    {
+      "id": "BR-066",
+      "section": "8.1 Navigation and Screen Flow",
+      "text": "Pressing F12 on either the Employee List screen or the New Employee screen shall always return the user to the Department Enquiry screen. The state of the Department Enquiry screen, including the position of the scrollable list, shall be restored.",
+      "paragraph_index": 134
+    },
+    {
+      "id": "BR-067",
+      "section": "8.1 Navigation and Screen Flow",
+      "text": "Pressing F3 on the Department Enquiry screen shall exit the application entirely and return control to the operating environment.",
+      "paragraph_index": 135
+    },
+    {
+      "id": "BR-068",
+      "section": "8.2 Subfile Behaviour",
+      "text": "On both the Department Enquiry screen and the Employee List screen, the scrollable list shall only be displayed when there is at least one record to show. If there are no records, the list area shall remain blank.",
+      "paragraph_index": 137
+    },
+    {
+      "id": "BR-069",
+      "section": "8.2 Subfile Behaviour",
+      "text": "When a scrollable list contains records, the initial position on entry to the screen shall be the first record in the list.",
+      "paragraph_index": 138
+    },
+    {
+      "id": "BR-070",
+      "section": "8.3 Error Display",
+      "text": "Error messages throughout the application shall be shown to the user on the affected screen without navigating away from it. The user shall be able to correct the condition and retry without loss of previously entered data.",
+      "paragraph_index": 140
+    },
+    {
+      "id": "BR-071",
+      "section": "8.3 Error Display",
+      "text": "Error messages on the New Employee screen shall appear in the designated message area in red text. No other area of the screen shall be used to convey error information.",
+      "paragraph_index": 141
+    },
+    {
+      "id": "BR-072",
+      "section": "8.4 Read-Only Fields",
+      "text": "The ID field on the New Employee screen is generated by the system and is presented for information only. The user must not be able to modify it.",
+      "paragraph_index": 143
+    },
+    {
+      "id": "BR-073",
+      "section": "8.4 Read-Only Fields",
+      "text": "The Department field on the New Employee screen is pre-populated by the system based on the department from which the user navigated. The user must not be able to modify it.",
+      "paragraph_index": 144
+    },
+    {
+      "id": "BR-074",
+      "section": "8.5 Record Scope",
+      "text": "The current release of the system provides no facility for modifying or deleting existing department or employee records through the interactive screens. Maintenance of existing records is outside the scope of the application as presently specified.",
+      "paragraph_index": 146
+    },
+    {
+      "id": "BR-075",
+      "section": "8.6 Transaction Control",
+      "text": "All database insertions performed by the interactive programs and the population routines shall be carried out without requiring explicit transaction commitment by the calling environment. Each individual insert shall be treated as a self-contained operation.",
+      "paragraph_index": 148
+    }
+  ]
+}
