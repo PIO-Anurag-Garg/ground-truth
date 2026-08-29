@@ -127,7 +127,7 @@ def main():
                     L += render_message(row)
         (outdir / name).write_text("\n".join(L), encoding="utf-8")
         index.append((i, name, title, len(kids), in_tok, out_tok, pc.get("cost", 0), total,
-                      stamp(p["created_at"]), stamp(p["updated_at"])))
+                      stamp(p["created_at"]), stamp(p["updated_at"]), p["id"]))
         print(f"wrote {name}  ({len(kids)} subagents)")
 
     idx = ["# Bob task sessions\n",
@@ -140,11 +140,14 @@ def main():
            "own. The **with subagents** column adds the spend of every subagent it spawned, "
            "which the in-app badge does not include. The screenshots in this folder show the "
            "first number; the second is the true cost of the work.\n",
-           "| # | Session | Subagents | Tokens in | Tokens out | Session | With subagents | Started | Ended |",
-           "|---|---------|-----------|-----------|------------|---------|----------------|---------|-------|"]
-    for i, name, title, nk, ti, to, own, tc, st, en in index:
-        idx.append(f"| {i:02d} | [{title[:58]}]({name}) | {nk} | {ti:,} | {to:,} | {own:.2f} | "
-                   f"**{tc:.2f}** | {st[11:]} | {en[11:]} |")
+           "Each row links its transcript and the Task Summary screenshot taken from Bob. "
+           "The task id in the screenshot matches the id at the head of the transcript, so "
+           "any figure here can be traced back to the tool that produced it.\n",
+           "| # | Session | Task id | Subagents | Tokens out | Session | With subagents | Screenshot |",
+           "|---|---------|---------|-----------|------------|---------|----------------|------------|"]
+    for i, name, title, nk, ti, to, own, tc, st, en, tid in index:
+        idx.append(f"| {i:02d} | [{title[:52]}]({name}) | `{tid[:12]}` | {nk} | {to:,} | "
+                   f"{own:.2f} | **{tc:.2f}** | [png]({i:02d}-task-summary.png) |")
     idx.append(f"\n**Total spend across all sessions: {grand['cost']:.2f}**\n")
     (outdir / "SESSIONS.md").write_text("\n".join(idx), encoding="utf-8")
     print(f"\nwrote {outdir/'SESSIONS.md'}")
