@@ -83,8 +83,11 @@ def main():
         sys.exit(f"no tasks found for project matching {needle!r}")
 
     # skip tasks that were opened but never used - they carry no evidence
+    # Subagents keep their output in the parent's tool results rather than in
+    # messages, so only top-level tasks are filtered on having a transcript.
     used = {r[0] for r in con.execute("select distinct task_id from messages")}
-    tasks = [t for t in tasks if t["id"] in used]
+    tasks = [t for t in tasks
+             if t["task_type"] != "normal" or t["id"] in used]
     parents = [t for t in tasks if t["task_type"] == "normal"]
     children: dict[str, list] = {}
     for t in tasks:
