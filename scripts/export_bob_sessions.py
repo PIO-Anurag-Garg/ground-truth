@@ -82,6 +82,9 @@ def main():
     if not tasks:
         sys.exit(f"no tasks found for project matching {needle!r}")
 
+    # skip tasks that were opened but never used - they carry no evidence
+    used = {r[0] for r in con.execute("select distinct task_id from messages")}
+    tasks = [t for t in tasks if t["id"] in used]
     parents = [t for t in tasks if t["task_type"] == "normal"]
     children: dict[str, list] = {}
     for t in tasks:
@@ -120,7 +123,7 @@ def main():
                 for row in con.execute("select * from messages where task_id=? order by id", (k["id"],)):
                     L += render_message(row)
         (outdir / name).write_text("\n".join(L), encoding="utf-8")
-        index.append((i, name, title, len(kids), in_tok, out_tok, total,
+        index.append((i, name, title, len(kids), in_tok, out_tok, pc.get("cost", 0), total,
                       stamp(p["created_at"]), stamp(p["updated_at"])))
         print(f"wrote {name}  ({len(kids)} subagents)")
 
@@ -130,10 +133,15 @@ def main():
            "accounting below is Bob's own record rather than a hand-written summary.\n",
            f"**{len(parents)} top-level sessions, {len(tasks) - len(parents)} subagents, "
            f"{grand['output']:,} output tokens.**\n",
-           "| # | Session | Subagents | Tokens in | Tokens out | Spend | Started | Ended |",
-           "|---|---------|-----------|-----------|------------|-------|---------|-------|"]
-    for i, name, title, nk, ti, to, tc, st, en in index:
-        idx.append(f"| {i:02d} | [{title[:58]}]({name}) | {nk} | {ti:,} | {to:,} | {tc:.2f} | {st[11:]} | {en[11:]} |")
+           "The **session** column is the figure Bob shows in the app for that task on its "
+           "own. The **with subagents** column adds the spend of every subagent it spawned, "
+           "which the in-app badge does not include. The screenshots in this folder show the "
+           "first number; the second is the true cost of the work.\n",
+           "| # | Session | Subagents | Tokens in | Tokens out | Session | With subagents | Started | Ended |",
+           "|---|---------|-----------|-----------|------------|---------|----------------|---------|-------|"]
+    for i, name, title, nk, ti, to, own, tc, st, en in index:
+        idx.append(f"| {i:02d} | [{title[:58]}]({name}) | {nk} | {ti:,} | {to:,} | {own:.2f} | "
+                   f"**{tc:.2f}** | {st[11:]} | {en[11:]} |")
     idx.append(f"\n**Total spend across all sessions: {grand['cost']:.2f}**\n")
     (outdir / "SESSIONS.md").write_text("\n".join(idx), encoding="utf-8")
     print(f"\nwrote {outdir/'SESSIONS.md'}")
