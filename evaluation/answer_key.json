@@ -1,0 +1,29 @@
+{
+  "note": "Machine-readable form of ANSWER_KEY.md. Part A is the planted changeset and forms the recall denominator. Part B are defects already present in IBM's published sample application before anything was planted; they are credit above the line, not part of the denominator.",
+  "planted": [
+    {"change": "P1 minimum salary band 30000", "kind": "UNDOCUMENTED", "match": "minimum band"},
+    {"change": "P2 PHONENO widened 4 to 5", "kind": "DRIFTED", "rule_ids": ["BR-001", "BR-027", "BR-037"]},
+    {"change": "P3 F5=Refresh added", "kind": "UNDOCUMENTED", "match": "F5"},
+    {"change": "P4 total narrowed to salary only", "kind": "DRIFTED", "rule_ids": ["BR-015", "BR-016"]},
+    {"change": "P5 middle-initial check removed", "kind": "DRIFTED", "rule_ids": ["BR-029"]},
+    {"change": "P6 EDLEVEL default 0 to 12", "kind": "DRIFTED", "rule_ids": ["BR-041"]}
+  ],
+  "preexisting": [
+    {"id": "E1 wrong error message for blank Job", "kind": "DRIFTED", "rule_ids": ["BR-032"]},
+    {"id": "E2 'an new ID' typo", "kind": "DRIFTED", "rule_ids": ["BR-044"]},
+    {"id": "E3 identifiers increment by 100", "kind": "DRIFTED", "rule_ids": ["BR-048"]},
+    {"id": "E4 BIRTHDATE silently set to today", "kind": "UNDOCUMENTED", "match": "BIRTHDATE"},
+    {"id": "E5 option 5 is a debug stub", "kind": "UNDOCUMENTED", "match": "Option 5"},
+    {"id": "E6 mypgm is orphaned", "kind": "UNDOCUMENTED", "match": "mypgm"}
+  ],
+  "key_corrections": [
+    "BR-018 was originally listed as an expected DRIFTED for the F5 change. That was an error in the key, not a miss by the audit: BR-018 states that F12 shall be available, not that it is the only key available. Adding F5 does not contradict it. The audit returned CONFIRMED for BR-018 and reported F5 separately as undocumented, which is the correct treatment. The rule was removed from the denominator."
+  ],
+  "verified_unanticipated": [
+    "BR-017 - XTOT is 9S 2, giving seven digits before the decimal where the rule requires nine",
+    "popemp generates PHONENO as 4-character hex, which the CHECK constraint rejects",
+    "popemp fetches 200 records from randomuser.me over HTTP at run time",
+    "popemp derives new EMPNO from count(empno)+1 rather than max, so it collides after any delete",
+    "the RPGUnit fixture carries salary 29250, below the planted minimum band"
+  ]
+}

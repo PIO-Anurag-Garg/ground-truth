@@ -1,0 +1,18 @@
+{
+  "seed": 20260830,
+  "population": 64,
+  "sample": [
+    "BR-004",
+    "BR-008",
+    "BR-009",
+    "BR-019",
+    "BR-038",
+    "BR-045",
+    "BR-049",
+    "BR-054",
+    "BR-055",
+    "BR-065",
+    "BR-074"
+  ],
+  "method": "random.sample over all CONFIRMED rule ids with seed 20260830, plus BR-074 forced in as a known-hard absence claim"
+}
