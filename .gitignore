@@ -6,3 +6,5 @@ out/verdicts/
 out/DRIFT_REPORT.md
 out/drift.xlsx
 out/drift.json
+~$*
+*.tmp
