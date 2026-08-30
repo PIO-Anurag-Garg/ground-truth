@@ -2,7 +2,7 @@
 
 An IBM Bob skill pack that proves, rule by rule, which parts of a legacy specification the code still obeys.
 
-**[Watch the 4-minute demo](https://youtu.be/C2dAUMIdoA8)** · [Full audit report](out/DRIFT_REPORT.md) · [How we verified it](#how-we-know-it-works)
+**[Watch the 4-minute demo](https://youtu.be/C2dAUMIdoA8)** · [Full audit report](out/DRIFT_REPORT.md) · [IBM Bob session evidence](bob_sessions/) · [How we verified it](#how-we-know-it-works)
 
 ---
 
@@ -127,6 +127,32 @@ Bob pauses at Step 2 (rule count confirmation) and Step 6 (findings review). App
 - **The corpus is 954 lines across 15 members.** Behaviour at 100,000 lines is untested. Parallelism helps with scale, but verification quality on a much larger codebase has not been measured.
 
 - **Undocumented findings were spot-checked, not exhaustively verified.** The five undocumented findings recorded in the answer key (P1, P3, E4, E5, E6) were all matched correctly. Five more were afterwards checked by hand against the source and all five held: the hex-derived phone numbers (`popemp.sqlprc:72`), the live HTTP call to randomuser.me (`popemp.sqlprc:49`), the use of `count(empno)+1` rather than `max` when assigning identifiers (`popemp.sqlprc:43`), the middle initial taken from the first letter of the first name (`popemp.sqlprc:62`), and the below-band salary in the test fixture (`empdet.test.sqlrpgle:49`). That is ten of thirty-two verified. The remaining twenty-two were not hand-checked and are reported as candidates.
+
+---
+
+## IBM Bob task session summary screenshots
+
+Every Bob task used to build this project is documented in
+**[`bob_sessions/`](bob_sessions/)** — six IBM Bob task session summary screenshots,
+the exported task history for each, and the full token and Bobcoin accounting.
+
+| Session | What Bob did | Task Id | Subagents | Screenshot | Transcript |
+|---------|--------------|---------|-----------|------------|------------|
+| 01 | Read the application and wrote the functional specification | `7cfe0b24edac` | 4 | [png](bob_sessions/01-task-summary.png) | [md](bob_sessions/01-do-three-things-and-report-the-result-of-each-as.md) |
+| 02 | Wrote and tested the five deterministic pipeline scripts | `7ccac5cebc6a` | 0 | [png](bob_sessions/02-task-summary.png) | [md](bob_sessions/02-build-the-deterministic-half-of-a-spec-vs-code-a.md) |
+| 03 | Wrote the skill pack, custom mode and slash command | `ac6cc4f9a7c9` | 0 | [png](bob_sessions/03-task-summary.png) | [md](bob_sessions/03-write-the-skill-pack-that-drives-the-audit-these.md) |
+| 04 | **Ran the audit** — 75 rules verified by 23 parallel subagents | `29b8732cc18a` | 23 | [png](bob_sessions/04-task-summary.png) | [md](bob_sessions/04-drift-corpus-spec-functional-spec-docx-corpus-ap.md) |
+| 05 | Adversarially re-verified its own CONFIRMED verdicts | `ad71351d06b9` | 11 | [png](bob_sessions/05-task-summary.png) | [md](bob_sessions/05-adversarial-re-verification-the-audit-returned-c.md) |
+| 06 | Wrote this README | `8fd7b6e0f54e` | 0 | [png](bob_sessions/06-task-summary.png) | [md](bob_sessions/06-write-readme-md-at-the-repository-root-this-is-t.md) |
+
+**Six sessions, 38 subagents, 284,327 output tokens.** The Task Id shown in each
+screenshot matches the Task Id at the head of its transcript, so any figure can be
+traced back to Bob's own record.
+
+Two further screenshots capture the human approval gate the audit cannot skip:
+[the findings as Bob presented them](bob_sessions/gate6-findings.png) and
+[the approval that released the output steps](bob_sessions/gate6-approval.png),
+reconciled against the final report in [`bob_sessions/GATE6.md`](bob_sessions/GATE6.md).
 
 ---
 
