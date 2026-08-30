@@ -6,9 +6,12 @@
 |---|---|
 | Total rules in spec | 75 |
 | Verdicts rendered | 75 |
-| Undocumented behaviours | 125 |
+| Undocumented behaviours (raw candidates) | 125 |
 | Missing verdicts | 0 |
 | Validation problems | 0 |
+
+
+> Undocumented findings are counted here as raw candidates. Each verification subagent works in an isolated context, so several independently report the same behaviour. The de-duplicated set is in `out/UNDOCUMENTED.md`. Both numbers are published, because reporting only the smaller one would overstate precision.
 
 ### By verdict
 | Verdict | Count |

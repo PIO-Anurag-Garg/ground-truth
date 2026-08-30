@@ -12,6 +12,13 @@ import sys
 from pathlib import Path
 from collections import defaultdict
 
+# Windows consoles default to cp1252 and mangle non-ASCII in the echo.
+# Output files are written as UTF-8 regardless.
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+
 VALID_VERDICTS    = {"CONFIRMED", "DRIFTED", "UNVERIFIABLE"}
 VALID_CONFIDENCES = {"HIGH", "MEDIUM", "LOW"}
 

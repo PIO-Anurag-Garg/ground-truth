@@ -66,10 +66,17 @@ def _build_markdown(drift: dict) -> str:
     lines.append("|---|---|")
     lines.append(f"| Total rules in spec | {summary['total_rules']} |")
     lines.append(f"| Verdicts rendered | {summary['total_verdicts']} |")
-    lines.append(f"| Undocumented behaviours | {summary['total_undocumented']} |")
+    lines.append(f"| Undocumented behaviours (raw candidates) | {summary['total_undocumented']} |")
     lines.append(f"| Missing verdicts | {summary['total_missing']} |")
     lines.append(f"| Validation problems | {summary['validation_problems']} |")
     lines.append("")
+    lines.append("")
+    lines.append("> Undocumented findings are counted here as raw candidates. Each verification "
+                 "subagent works in an isolated context, so several independently report the same "
+                 "behaviour. The de-duplicated set is in `out/UNDOCUMENTED.md`. Both numbers are "
+                 "published, because reporting only the smaller one would overstate precision.")
+    lines.append("")
+
     lines.append("### By verdict")
     lines.append("| Verdict | Count |")
     lines.append("|---|---|")

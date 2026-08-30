@@ -14,6 +14,13 @@ from pathlib import Path
 
 from docx import Document
 
+# Windows consoles default to cp1252 and mangle non-ASCII in the echo.
+# Output files are written as UTF-8 regardless.
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+
 RULE_ID_RE = re.compile(r"^BR-(\d{3})\.")
 
 

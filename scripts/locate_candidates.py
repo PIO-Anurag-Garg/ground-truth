@@ -51,6 +51,13 @@ import re
 import sys
 from pathlib import Path
 
+# Windows consoles default to cp1252 and mangle non-ASCII in the echo.
+# Output files are written as UTF-8 regardless.
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+
 # ---------------------------------------------------------------------------
 # Term extraction
 # ---------------------------------------------------------------------------
