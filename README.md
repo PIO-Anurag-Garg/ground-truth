@@ -2,6 +2,8 @@
 
 An IBM Bob skill pack that proves, rule by rule, which parts of a legacy specification the code still obeys.
 
+**[Watch the 4-minute demo](https://youtu.be/C2dAUMIdoA8)** · [Full audit report](out/DRIFT_REPORT.md) · [How we verified it](#how-we-know-it-works)
+
 ---
 
 ## The problem
