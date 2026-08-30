@@ -1,0 +1,80 @@
+{
+  "cluster_id": "C19",
+  "verdicts": [
+    {
+      "rule_id": "BR-070",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qddssrc/nemp.dspf",
+          "start_line": 44,
+          "end_line": 44
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 55,
+          "end_line": 78
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-071",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qddssrc/nemp.dspf",
+          "start_line": 44,
+          "end_line": 44
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 60,
+          "end_line": 76
+        }
+      ]
+    }
+  ],
+  "undocumented": [
+    {
+      "title": "Incorrect validation error message for empty Job field",
+      "confidence": "HIGH",
+      "code_does": "When XJOB is blank, GetError returns 'Phone number cannot be blank' instead of a job-related message, misidentifying the failed field to the user.",
+      "why_it_matters": "Users receive a misleading error message that names the wrong field, which could cause confusion and difficulty correcting the form.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 133,
+          "end_line": 135
+        }
+      ]
+    },
+    {
+      "title": "Salary field validated against minimum band (HR policy floor of 30000)",
+      "confidence": "HIGH",
+      "code_does": "GetError rejects salary values below 30000, citing an HR policy (2015-03) minimum band; this business rule is not described in any specification rule in the assigned cluster.",
+      "why_it_matters": "An undocumented HR-policy business rule is enforced in code and could silently become stale if the policy changes.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 147,
+          "end_line": 150
+        }
+      ]
+    },
+    {
+      "title": "Auto-generated employee ID displayed as error when generation fails",
+      "confidence": "MEDIUM",
+      "code_does": "Before entering the main loop, if getNewEmpId() returns blank, XERR is set to an error message on the initial screen display rather than through the normal validation path.",
+      "why_it_matters": "This pre-loop error path means an error can be shown without the user having entered any data, and the program will still proceed to accept input in the loop — the error message may be silently overwritten.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 47,
+          "end_line": 51
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "cluster_id": "C11",
+  "verdicts": [
+    {
+      "rule_id": "BR-038",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qddssrc/nemp.dspf",
+          "start_line": 44,
+          "end_line": 44
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 74,
+          "end_line": 76
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-039",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 55,
+          "end_line": 76
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 114,
+          "end_line": 165
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-040",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 55,
+          "end_line": 78
+        },
+        {
+          "file": "corpus/app/qddssrc/nemp.dspf",
+          "start_line": 12,
+          "end_line": 42
+        }
+      ]
+    }
+  ],
+  "undocumented": [
+    {
+      "title": "Wrong error message text for blank Job field",
+      "confidence": "HIGH",
+      "code_does": "When XJOB is blank the error message returned is 'Phone number cannot be blank' instead of a job-related message.",
+      "why_it_matters": "The mislabelled error message would mislead users into thinking the phone field is missing when it is actually the job field that is empty.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 133,
+          "end_line": 135
+        }
+      ]
+    },
+    {
+      "title": "Salary minimum-band enforcement (HR policy)",
+      "confidence": "HIGH",
+      "code_does": "Salaries below 30,000 are rejected with 'Salary below minimum band', enforcing a 2015-03 HR policy minimum.",
+      "why_it_matters": "This business rule is not documented in the specification; if the minimum changes, there is no spec entry to prompt a code update.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 147,
+          "end_line": 150
+        }
+      ]
+    },
+    {
+      "title": "Auto-generated Employee ID with fallback error",
+      "confidence": "HIGH",
+      "code_does": "The program auto-generates a new employee ID by querying the max existing EMPNO and adding 100; if this fails, an error is shown before any user input.",
+      "why_it_matters": "The auto-ID generation algorithm and the pre-entry error state are not covered by any specification rule.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 45,
+          "end_line": 51
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 172,
+          "end_line": 194
+        }
+      ]
+    },
+    {
+      "title": "Department field is read-only output, not user-editable",
+      "confidence": "HIGH",
+      "code_does": "XDEPT is declared as Output-only (O) in the display file and is pre-populated from the calling program's currentDepartment parameter; users cannot change it.",
+      "why_it_matters": "The spec does not describe the department field being locked to the parent context or being non-editable.",
+      "citations": [
+        {
+          "file": "corpus/app/qddssrc/nemp.dspf",
+          "start_line": 27,
+          "end_line": 27
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 53,
+          "end_line": 53
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "cluster_id": "C20",
+  "verdicts": [
+    {
+      "rule_id": "BR-072",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qddssrc/nemp.dspf",
+          "start_line": 7,
+          "end_line": 7
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 45,
+          "end_line": 51
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-073",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qddssrc/nemp.dspf",
+          "start_line": 27,
+          "end_line": 27
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 53,
+          "end_line": 53
+        },
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 148,
+          "end_line": 150
+        }
+      ]
+    }
+  ],
+  "undocumented": [
+    {
+      "title": "HandleInsert ignores screen XDEPT and uses the raw program parameter instead",
+      "confidence": "HIGH",
+      "code_does": "On insert, newEmp.WORKDEPT is assigned from the program parameter currentDepartment (line 91), not from the display field XDEPT, so any hypothetical screen value for XDEPT is silently discarded.",
+      "why_it_matters": "If the read-only enforcement on XDEPT were ever removed, a user-entered department would still be silently overridden by the caller-supplied parameter, making the behaviour non-obvious and untestable from the UI.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 85,
+          "end_line": 112
+        }
+      ]
+    },
+    {
+      "title": "Wrong error message returned when Job field is blank",
+      "confidence": "HIGH",
+      "code_does": "When XJOB is blank the function returns the string 'Phone number cannot be blank' instead of a message about the job field.",
+      "why_it_matters": "This copy-paste error will confuse users who leave the Job field empty, as they will be told to fix the phone number instead.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 133,
+          "end_line": 135
+        }
+      ]
+    },
+    {
+      "title": "Minimum salary band of $30,000 enforced at creation time",
+      "confidence": "HIGH",
+      "code_does": "GetError rejects any salary below 30000, citing a 2015-03 HR policy; no employee can be created below this threshold.",
+      "why_it_matters": "This business rule is not documented in the specification and cannot be audited for correctness or currency.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 147,
+          "end_line": 150
+        }
+      ]
+    },
+    {
+      "title": "Employee ID generation adds 100 to the current maximum rather than incrementing by 1",
+      "confidence": "MEDIUM",
+      "code_does": "getNewEmpId computes the next ID as max(int(empno)) + 100, meaning IDs advance in steps of 100 rather than sequentially.",
+      "why_it_matters": "This gap strategy is undocumented; it may reflect an intentional design choice or a latent bug, and the spec says only that the ID is system-generated.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 172,
+          "end_line": 195
+        }
+      ]
+    }
+  ]
+}

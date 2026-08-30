@@ -1,0 +1,91 @@
+{
+  "cluster_id": "C22",
+  "verdicts": [
+    {
+      "rule_id": "BR-075",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/popdept.sqlprc",
+          "start_line": 35,
+          "end_line": 36
+        },
+        {
+          "file": "corpus/app/qsqlsrc/popemp.sqlprc",
+          "start_line": 83,
+          "end_line": 86
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 106,
+          "end_line": 109
+        },
+        {
+          "file": "corpus/app/makefile",
+          "start_line": 39,
+          "end_line": 49
+        }
+      ]
+    }
+  ],
+  "undocumented": [
+    {
+      "title": "COMMIT(*NONE) baked into compiled objects via makefile",
+      "confidence": "HIGH",
+      "code_does": "All three RPGLE programs (DEPTS, EMPLOYEES, NEWEMP) are compiled with COMMIT(*NONE) in the makefile, which disables journal-based commitment control at the object level, not just at the SQL statement level.",
+      "why_it_matters": "The no-commit behaviour is enforced at compile time, so it cannot be overridden by the calling environment even if desired — this is stronger than the spec implies (which only states no explicit commitment is required from the caller).",
+      "citations": [
+        {
+          "file": "corpus/app/makefile",
+          "start_line": 39,
+          "end_line": 49
+        }
+      ]
+    },
+    {
+      "title": "SQL stored procedures use WITH NC on INSERT but have no explicit commit scope declaration",
+      "confidence": "MEDIUM",
+      "code_does": "The stored procedures popdept and popemp use 'WITH NC' on each INSERT statement, preventing journal commitment, but the CREATE PROCEDURE statements themselves carry no COMMIT ON RETURN or AUTONOMOUS clause, leaving batch-level rollback behaviour undefined if the procedure is called inside an outer transaction.",
+      "why_it_matters": "If a caller ever wraps the procedure call in a transaction (e.g. from a JDBC/ODBC client with autocommit off), the WITH NC inserts will bypass commitment control anyway, but the interaction between the outer transaction and the procedure's side effects is not specified.",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/popdept.sqlprc",
+          "start_line": 5,
+          "end_line": 9
+        },
+        {
+          "file": "corpus/app/qsqlsrc/popemp.sqlprc",
+          "start_line": 10,
+          "end_line": 16
+        }
+      ]
+    },
+    {
+      "title": "Employee ID auto-generation increments by 100 instead of 1",
+      "confidence": "HIGH",
+      "code_does": "getNewEmpId() computes the next employee ID as MAX(INT(empno)) + 100, not MAX + 1, creating large gaps in the employee number sequence.",
+      "why_it_matters": "No specification rule describes this gap-by-100 strategy; if employee numbers are expected to be sequential (e.g. for reporting or range queries) this behaviour could produce unexpected results.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 182,
+          "end_line": 194
+        }
+      ]
+    },
+    {
+      "title": "Minimum salary validation hard-coded to 30000 with HR policy comment",
+      "confidence": "MEDIUM",
+      "code_does": "newemp.pgm.sqlrpgle rejects any new hire salary below 30000, citing a 2015-03 HR policy in a source comment.",
+      "why_it_matters": "This business rule is undocumented in the specification and is embedded as a magic constant with a dated policy reference, making it invisible to future maintainers without reading the source.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 147,
+          "end_line": 150
+        }
+      ]
+    }
+  ]
+}

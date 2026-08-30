@@ -1,0 +1,115 @@
+{
+  "cluster_id": "C18",
+  "verdicts": [
+    {
+      "rule_id": "BR-068",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 83,
+          "end_line": 92
+        },
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 127,
+          "end_line": 130
+        },
+        {
+          "file": "corpus/app/qddssrc/depts.dspf",
+          "start_line": 14,
+          "end_line": 16
+        },
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 80,
+          "end_line": 89
+        },
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 130,
+          "end_line": 133
+        },
+        {
+          "file": "corpus/app/qddssrc/emps.dspf",
+          "start_line": 16,
+          "end_line": 17
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-069",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 127,
+          "end_line": 130
+        },
+        {
+          "file": "corpus/app/qddssrc/depts.dspf",
+          "start_line": 17,
+          "end_line": 17
+        },
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 130,
+          "end_line": 133
+        },
+        {
+          "file": "corpus/app/qddssrc/emps.dspf",
+          "start_line": 19,
+          "end_line": 19
+        }
+      ]
+    }
+  ],
+  "undocumented": [
+    {
+      "title": "SFLRRN reset to rrn (last loaded record) after each selection update",
+      "confidence": "MEDIUM",
+      "code_does": "After processing a selection in HandleInputs, SFLRRN is set to the value of rrn (the last loaded RRN) rather than the current selected record's position, which controls where the cursor returns to on the screen.",
+      "why_it_matters": "The post-selection cursor position is effectively the bottom of the loaded subfile rather than the row the user acted on, which may be unexpected behaviour not described in any specification rule.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 153,
+          "end_line": 157
+        },
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 152,
+          "end_line": 156
+        }
+      ]
+    },
+    {
+      "title": "Employee List subfile is cleared and reloaded on F5=Refresh",
+      "confidence": "HIGH",
+      "code_does": "Pressing F5 on the Employee List screen triggers a full ClearSubfile + LoadSubfile cycle, requerying the database and repopulating the subfile from scratch.",
+      "why_it_matters": "No specification rule describes the F5=Refresh function or its effect on the employee list; this is observable behaviour that could mask data changes or performance concerns.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 67,
+          "end_line": 68
+        }
+      ]
+    },
+    {
+      "title": "Employee List exits immediately if department is not found",
+      "confidence": "HIGH",
+      "code_does": "After loading the subfile, employees.pgm.sqlrpgle calls getDeptDetail and returns immediately if the department is not found, bypassing the display loop entirely.",
+      "why_it_matters": "No specification rule describes this early-exit behaviour; users navigating to an invalid department would see a blank/instant return with no error message.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 52,
+          "end_line": 56
+        }
+      ]
+    }
+  ]
+}

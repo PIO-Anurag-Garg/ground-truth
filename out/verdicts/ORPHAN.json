@@ -1,0 +1,475 @@
+{
+  "cluster_id": "ORPHAN",
+  "verdicts": [],
+  "undocumented": [
+    {
+      "title": "Employee List exits immediately if department is not found",
+      "confidence": "HIGH",
+      "code_does": "EMPLOYEES program calls getDeptDetail and returns without displaying any screen if the department record is not found (found = *off).",
+      "why_it_matters": "This silent early-exit is invisible to the user — no error message is shown — and the behaviour is undocumented, so a caller cannot predict what happens when an invalid department is passed.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 52,
+          "end_line": 56
+        }
+      ]
+    },
+    {
+      "title": "Employee List displays total salaries from getDeptDetail, not a subfile sum",
+      "confidence": "HIGH",
+      "code_does": "XTOT is populated from getDeptDetail.totalsalaries (a pre-computed SQL SUM of the department's employees' salaries) before the display loop begins; it is not recalculated from the subfile rows.",
+      "why_it_matters": "The salary total can therefore differ from the visible list if the subfile query and the getDeptDetail query run at different points in time, and this approach is not described in any specification rule.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 52,
+          "end_line": 58
+        },
+        {
+          "file": "corpus/app/qrpglesrc/empdet.sqlrpgle",
+          "start_line": 42,
+          "end_line": 56
+        }
+      ]
+    },
+    {
+      "title": "Employee List supports F5=Refresh to reload the subfile",
+      "confidence": "HIGH",
+      "code_does": "Pressing F5 on the Employee List screen triggers LoadSubfile(), re-querying the database and refreshing the displayed employee rows.",
+      "why_it_matters": "This is a user-visible interactive feature shown in the screen footer ('F5=Refresh F12=Back') that is not mentioned in any specification rule.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 67,
+          "end_line": 68
+        },
+        {
+          "file": "corpus/app/qddssrc/emps.dspf",
+          "start_line": 39,
+          "end_line": 39
+        }
+      ]
+    },
+    {
+      "title": "Employee List option 5 shows a DSPLY popup rather than navigating to a screen",
+      "confidence": "HIGH",
+      "code_does": "When the user selects option 5 on an employee row, the program executes 'DSPLY XID' — a raw system display of the employee ID — instead of opening a dedicated employee detail screen.",
+      "why_it_matters": "This is a stub/placeholder behaviour that a user or developer would not expect from a production system; it is undocumented and differs from the analogous option 5 on the Department screen which calls the EMPLOYEES program.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 147,
+          "end_line": 149
+        }
+      ]
+    },
+    {
+      "title": "New Employee screen displays a name formatted as 'LASTNAME, FIRSTNAME' in the Employee List",
+      "confidence": "HIGH",
+      "code_does": "The Employee List subfile row for XNAME is assembled as LASTNAME + ', ' + FIRSTNAME (trimmed), not FIRSTNAME LASTNAME.",
+      "why_it_matters": "The display format of the employee name in the list is undocumented.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 117,
+          "end_line": 118
+        }
+      ]
+    },
+    {
+      "title": "New Employee insert uses HIREDATE = current date and hard-coded BIRTHDATE = current date",
+      "confidence": "HIGH",
+      "code_does": "HandleInsert sets HIREDATE to %Date (today) and BIRTHDATE also to %Date (today) with a comment 'We don't actually care about these fields', and hardcodes EDLEVEL=12, BONUS=0, COMM=0.",
+      "why_it_matters": "Using the current date as birthdate is semantically incorrect and represents undocumented default-value behaviour for fields the user cannot enter.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 93,
+          "end_line": 101
+        }
+      ]
+    },
+    {
+      "title": "Salary minimum band validation enforces 30,000 minimum for new hires",
+      "confidence": "HIGH",
+      "code_does": "GetError rejects a salary below 30,000 with the message 'Salary below minimum band', citing a 2015-03 HR policy comment in the source.",
+      "why_it_matters": "This business rule (minimum salary of 30,000) is enforced in the interactive validation path but is not described in any specification rule.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 147,
+          "end_line": 150
+        }
+      ]
+    },
+    {
+      "title": "Job validation error message is mislabelled as 'Phone number cannot be blank'",
+      "confidence": "HIGH",
+      "code_does": "When XJOB (the Job field) is blank, GetError returns 'Phone number cannot be blank' instead of a job-related message — the error message text is incorrect for the field being validated.",
+      "why_it_matters": "This is a bug in validation error messaging that is invisible in the specification; the user receives a misleading error.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 133,
+          "end_line": 135
+        }
+      ]
+    },
+    {
+      "title": "Salary field on New Employee screen is entered as free-text and converted to DECIMAL",
+      "confidence": "HIGH",
+      "code_does": "XSAL is declared as a 10-character alphanumeric input field; the program validates it with %dec() and converts it to a packed decimal on insert.",
+      "why_it_matters": "The alphanumeric salary input and the numeric conversion/validation step are undocumented behaviours.",
+      "citations": [
+        {
+          "file": "corpus/app/qddssrc/nemp.dspf",
+          "start_line": 37,
+          "end_line": 37
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 137,
+          "end_line": 145
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 104,
+          "end_line": 104
+        }
+      ]
+    },
+    {
+      "title": "Phone field validated as integer but stored as CHAR(5) in the database",
+      "confidence": "HIGH",
+      "code_does": "GetError validates XTEL with %int() to ensure it is numeric, but PHONENO in the database is CHAR(5); the 5-character screen field is stored directly.",
+      "why_it_matters": "The validation allows any 5-digit-or-fewer integer string but does not enforce that the value is exactly 5 digits or padded; this undocumented type-coercion behaviour is separate from the PHONENO range constraint (BR-001).",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 153,
+          "end_line": 162
+        },
+        {
+          "file": "corpus/app/qsqlsrc/employee.table",
+          "start_line": 9,
+          "end_line": 9
+        }
+      ]
+    },
+    {
+      "title": "getNewEmpId increments maximum existing EMPNO by 100, not 1",
+      "confidence": "HIGH",
+      "code_does": "getNewEmpId selects MAX(INT(EMPNO)) from EMPLOYEE and adds 100 to derive the next employee number, then zero-pads it to 6 characters.",
+      "why_it_matters": "The gap of 100 between IDs is an undocumented detail of the ID-generation algorithm that differs from a simple sequential increment.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 182,
+          "end_line": 192
+        }
+      ]
+    },
+    {
+      "title": "getNewEmpId returns blank string on SQL error; program shows generic error message",
+      "confidence": "MEDIUM",
+      "code_does": "If the MAX(EMPNO) query fails (sqlstate <> '00000'), getNewEmpId returns '' and the caller displays 'Unable to automatically generate an new ID.' without further detail.",
+      "why_it_matters": "The error handling path for ID generation failure is undocumented.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 47,
+          "end_line": 51
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 193,
+          "end_line": 194
+        }
+      ]
+    },
+    {
+      "title": "getDeptDetail substitutes 'N/A' when department LOCATION is NULL",
+      "confidence": "HIGH",
+      "code_does": "getDeptDetail uses COALESCE(location, 'N/A') so a department with no location returns the string 'N/A' rather than blank.",
+      "why_it_matters": "This substitution is an undocumented presentation rule for missing location data.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/empdet.sqlrpgle",
+          "start_line": 44,
+          "end_line": 45
+        }
+      ]
+    },
+    {
+      "title": "getEmployeeDetail computes net income as salary + bonus + comm",
+      "confidence": "HIGH",
+      "code_does": "getEmployeeDetail returns netincome as the arithmetic sum of SALARY, BONUS, and COMM columns.",
+      "why_it_matters": "The composition of 'net income' (i.e., including bonus and commission) is an undocumented calculation rule for the employee detail service.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/empdet.sqlrpgle",
+          "start_line": 16,
+          "end_line": 17
+        }
+      ]
+    },
+    {
+      "title": "getDeptDetail returns total salaries as sum of SALARY only (excludes bonus and comm)",
+      "confidence": "HIGH",
+      "code_does": "The department total returned in totalsalaries is SUM(salary) for employees in the department — it does not include BONUS or COMM.",
+      "why_it_matters": "The composition of the department salary total is undocumented, and it differs from the employee-level net income calculation which includes bonus and comm.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/empdet.sqlrpgle",
+          "start_line": 46,
+          "end_line": 48
+        }
+      ]
+    },
+    {
+      "title": "Department table has a self-referential foreign key CASCADE DELETE on ADMRDEPT",
+      "confidence": "HIGH",
+      "code_does": "The DEPARTMENT table enforces a foreign key on ADMRDEPT that references DEPARTMENT itself, with ON DELETE CASCADE, meaning deleting a department can cascade-delete its administered sub-departments.",
+      "why_it_matters": "This referential integrity rule is undocumented in the specification and has significant data-integrity implications.",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/department.table",
+          "start_line": 11,
+          "end_line": 14
+        }
+      ]
+    },
+    {
+      "title": "LOCATION column on DEPARTMENT table is declared NOT NULL in DDL but COALESCE used as if nullable",
+      "confidence": "MEDIUM",
+      "code_does": "The DDL declares LOCATION CHAR(16) NOT NULL, but getDeptDetail wraps location in COALESCE(location, 'N/A'), suggesting the schema has been or was expected to allow NULLs.",
+      "why_it_matters": "The discrepancy between the DDL constraint and the defensive COALESCE is undocumented and may indicate schema drift or dead defensive code.",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/department.table",
+          "start_line": 8,
+          "end_line": 8
+        },
+        {
+          "file": "corpus/app/qrpglesrc/empdet.sqlrpgle",
+          "start_line": 44,
+          "end_line": 45
+        }
+      ]
+    },
+    {
+      "title": "popdept generates department names from a fixed set of five categories",
+      "confidence": "HIGH",
+      "code_does": "popdept always creates exactly the same five department names: Admin, IT, Finance, Management, HR (in that iteration order), while DEPTNO, MGRNO, and ADMRDEPT are randomised.",
+      "why_it_matters": "The fixed department name list is undocumented; the spec only says 5 departments with random IDs.",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/popdept.sqlprc",
+          "start_line": 26,
+          "end_line": 32
+        }
+      ]
+    },
+    {
+      "title": "popdept sets ADMRDEPT to a random value, which may not exist in the DEPARTMENT table, violating the self-referential FK",
+      "confidence": "MEDIUM",
+      "code_does": "admrdept is set to a random 3-digit string that is independent of the generated DEPTNO values; insertion with 'with nc' skips commit but does not bypass FK enforcement.",
+      "why_it_matters": "The population procedure may produce FK violations on ADMRDEPT if the randomly generated value does not match an existing DEPTNO, which is undocumented risk.",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/popdept.sqlprc",
+          "start_line": 22,
+          "end_line": 22
+        },
+        {
+          "file": "corpus/app/qsqlsrc/department.table",
+          "start_line": 11,
+          "end_line": 14
+        }
+      ]
+    },
+    {
+      "title": "popemp uses SYSTOOLS.HTTP_GET to fetch live random user data from randomuser.me per employee record",
+      "confidence": "HIGH",
+      "code_does": "For each of the 200 employees, popemp makes an individual HTTP GET request to randomuser.me/api to obtain first name, last name, and sex, performing 200 sequential HTTP calls per invocation.",
+      "why_it_matters": "The external HTTP dependency and one-request-per-row design is undocumented and has significant performance and availability implications.",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/popemp.sqlprc",
+          "start_line": 48,
+          "end_line": 56
+        }
+      ]
+    },
+    {
+      "title": "popemp derives PHONENO as a 4-character hex substring of a random value",
+      "confidence": "HIGH",
+      "code_does": "v_phone_no is set to the first 4 characters of HEX(rand()), producing a 4-digit hex string (e.g. '3F7A') rather than a numeric phone number.",
+      "why_it_matters": "The phone number is stored as a non-numeric hex value, which may violate the PHONENO constraint (BR-001 requires 00000–99998) and is entirely undocumented.",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/popemp.sqlprc",
+          "start_line": 72,
+          "end_line": 72
+        }
+      ]
+    },
+    {
+      "title": "popemp derives MIDINIT from first character of first name, not a separate middle-initial field",
+      "confidence": "HIGH",
+      "code_does": "v_mid_init is set to SUBSTR of the first name's first character rather than a dedicated middle-initial value from the API response.",
+      "why_it_matters": "The middle initial is always identical to the first letter of the first name; this undocumented derivation rule means MIDINIT is not independent data.",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/popemp.sqlprc",
+          "start_line": 62,
+          "end_line": 62
+        }
+      ]
+    },
+    {
+      "title": "popemp derives SEX from first character of gender string returned by API",
+      "confidence": "MEDIUM",
+      "code_does": "v_sex is set to SUBSTR(json_value(...gender),1,1), mapping 'male'→'m' and 'female'→'f'.",
+      "why_it_matters": "The mapping from the API gender field to the SEX column is undocumented.",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/popemp.sqlprc",
+          "start_line": 76,
+          "end_line": 76
+        }
+      ]
+    },
+    {
+      "title": "popemp generates job codes as 'JOB' concatenated with 4 hex characters",
+      "confidence": "HIGH",
+      "code_does": "v_job is set to 'JOB' || SUBSTR(HEX(rand()),1,4), producing values like 'JOB3F7A' rather than meaningful job titles.",
+      "why_it_matters": "The job generation algorithm is undocumented and produces non-descriptive codes.",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/popemp.sqlprc",
+          "start_line": 74,
+          "end_line": 74
+        }
+      ]
+    },
+    {
+      "title": "popemp hire date spans a 10-year window from 2023-01-01",
+      "confidence": "MEDIUM",
+      "code_does": "v_hire_date = date('2023-01-01') + INT(rand() * 365 * 10) DAYS, producing hire dates between 2023 and approximately 2033.",
+      "why_it_matters": "The specific hire-date window (starting 2023, spanning 10 years) is undocumented in the specification.",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/popemp.sqlprc",
+          "start_line": 73,
+          "end_line": 73
+        }
+      ]
+    },
+    {
+      "title": "popemp birth date spans a 50-year window from 1960-01-01",
+      "confidence": "MEDIUM",
+      "code_does": "v_birth_date = date('1960-01-01') + INT(rand() * 365 * 50) DAYS, producing birth dates between 1960 and approximately 2010.",
+      "why_it_matters": "The specific birth-date window is undocumented.",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/popemp.sqlprc",
+          "start_line": 77,
+          "end_line": 77
+        }
+      ]
+    },
+    {
+      "title": "popemp uses sequential integer EMPNO starting from current row count + 1",
+      "confidence": "HIGH",
+      "code_does": "i is initialised to COUNT(empno)+1 (not MAX+1), so if any rows were deleted the new IDs may collide with previously used (now-deleted) IDs.",
+      "why_it_matters": "Using COUNT rather than MAX for the starting ID is an undocumented design choice that can produce duplicate primary key errors when rows have been deleted.",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/popemp.sqlprc",
+          "start_line": 43,
+          "end_line": 45
+        }
+      ]
+    },
+    {
+      "title": "mypgm.pgm.rpgle is an orphaned test/hello-world program with no functional role",
+      "confidence": "HIGH",
+      "code_does": "mypgm prints 'Hello to all you people' via printf and DSPLY; it has no relation to the application's department/employee functionality.",
+      "why_it_matters": "The presence of this program in the application source tree is undocumented; it may be leftover scaffolding that should be removed.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/mypgm.pgm.rpgle",
+          "start_line": 1,
+          "end_line": 18
+        }
+      ]
+    },
+    {
+      "title": "Test suite uses CRTDUPOBJ + OVRDBF to isolate tests against QTEMP copies of tables",
+      "confidence": "HIGH",
+      "code_does": "setupMockTable duplicates the EMPLOYEE and DEPARTMENT tables into QTEMP and overrides the file reference at job scope so test queries hit the isolated copies.",
+      "why_it_matters": "The test isolation strategy (QTEMP duplication, job-scoped override) is not described in the specification and is important for understanding how tests can be run safely without affecting production data.",
+      "citations": [
+        {
+          "file": "corpus/app/qtestsrc/empdet.test.sqlrpgle",
+          "start_line": 11,
+          "end_line": 33
+        }
+      ]
+    },
+    {
+      "title": "Test fixture includes an employee (GREG ORLANDO) with salary below the 30,000 minimum band",
+      "confidence": "MEDIUM",
+      "code_does": "setUpSuite inserts employee '200120' with SALARY=29250, which is below the 30,000 minimum enforced by the new-employee validation.",
+      "why_it_matters": "The test data contradicts the salary minimum-band rule, suggesting existing employees may have sub-minimum salaries or the rule is only enforced on insert via the interactive screen.",
+      "citations": [
+        {
+          "file": "corpus/app/qtestsrc/empdet.test.sqlrpgle",
+          "start_line": 48,
+          "end_line": 49
+        }
+      ]
+    },
+    {
+      "title": "Departments subfile loaded without ORDER BY — display order is undefined",
+      "confidence": "MEDIUM",
+      "code_does": "The deptCur cursor in depts.pgm.sqlrpgle selects DEPTNO and DEPTNAME FROM DEPARTMENT with no ORDER BY clause, so the display order depends on physical storage order.",
+      "why_it_matters": "The undocumented (and non-deterministic) sort order of the department list is a behaviour not covered by the specification.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 101,
+          "end_line": 103
+        }
+      ]
+    },
+    {
+      "title": "Employee subfile loaded without ORDER BY — display order is undefined",
+      "confidence": "MEDIUM",
+      "code_does": "The empCur cursor in employees.pgm.sqlrpgle selects employees with no ORDER BY clause.",
+      "why_it_matters": "The undocumented sort order of the employee list is a behaviour not covered by the specification.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 98,
+          "end_line": 101
+        }
+      ]
+    },
+    {
+      "title": "Depts program uses fixed-format RPG file declaration (F-spec) instead of free-format Dcl-F",
+      "confidence": "LOW",
+      "code_does": "depts.pgm.sqlrpgle mixes fixed-format F-spec and D-spec declarations with free-format RPG code, unlike the fully free-format style used in employees.pgm.sqlrpgle.",
+      "why_it_matters": "The inconsistent coding style between programs is undocumented and may indicate the depts program was not fully converted to free-format RPG.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 20,
+          "end_line": 51
+        }
+      ]
+    }
+  ]
+}

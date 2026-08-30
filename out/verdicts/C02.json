@@ -1,0 +1,132 @@
+{
+  "cluster_id": "C02",
+  "verdicts": [
+    {
+      "rule_id": "BR-002",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 101,
+          "end_line": 120
+        },
+        {
+          "file": "corpus/app/qddssrc/depts.dspf",
+          "start_line": 7,
+          "end_line": 8
+        },
+        {
+          "file": "corpus/app/qddssrc/depts.dspf",
+          "start_line": 22,
+          "end_line": 25
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-003",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qddssrc/depts.dspf",
+          "start_line": 11,
+          "end_line": 11
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-004",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qddssrc/depts.dspf",
+          "start_line": 12,
+          "end_line": 12
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-005",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qddssrc/depts.dspf",
+          "start_line": 6,
+          "end_line": 6
+        },
+        {
+          "file": "corpus/app/qddssrc/depts.dspf",
+          "start_line": 19,
+          "end_line": 21
+        }
+      ]
+    }
+  ],
+  "undocumented": [
+    {
+      "title": "Option codes 5 and 8 drive navigation to sub-screens",
+      "confidence": "HIGH",
+      "code_does": "Entering '5' against a department row calls the Employees program for that department; entering '8' calls the NewEmp program to add a new employee to that department.",
+      "why_it_matters": "The valid option codes and their effects are not documented in the specification rules for this cluster, so their correctness cannot be audited.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 144,
+          "end_line": 151
+        },
+        {
+          "file": "corpus/app/qddssrc/depts.dspf",
+          "start_line": 35,
+          "end_line": 36
+        }
+      ]
+    },
+    {
+      "title": "Selection field is blanked after each option is processed",
+      "confidence": "HIGH",
+      "code_does": "After processing a changed subfile row, the program clears XSEL to blank and updates the subfile record, preventing the same option from being re-processed on the next interaction.",
+      "why_it_matters": "This implicit reset behaviour is not described in the spec; a user who enters options on multiple rows would see them cleared after submission.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 153,
+          "end_line": 157
+        }
+      ]
+    },
+    {
+      "title": "XNAME display field is 38 characters wide but DEPTNAME column is VARCHAR(36)",
+      "confidence": "MEDIUM",
+      "code_does": "The XNAME subfile field is declared as 38A in the display file, two characters wider than the VARCHAR(36) DEPTNAME column in the DEPARTMENT table DDL.",
+      "why_it_matters": "The two extra characters are never populated, but the discrepancy may indicate a copy-paste error or an undocumented layout margin that could mislead future maintenance.",
+      "citations": [
+        {
+          "file": "corpus/app/qddssrc/depts.dspf",
+          "start_line": 8,
+          "end_line": 8
+        },
+        {
+          "file": "corpus/app/qsqlsrc/department.table",
+          "start_line": 5,
+          "end_line": 5
+        }
+      ]
+    },
+    {
+      "title": "Subfile is fully loaded into memory before display (no lazy/paged fetch)",
+      "confidence": "HIGH",
+      "code_does": "LoadSubfile fetches all rows from the DEPARTMENT cursor in a loop and writes every row to the subfile before the screen is shown, rather than loading pages on demand.",
+      "why_it_matters": "For large department tables approaching the 9,999-entry maximum, the load time could be noticeable; this eager-load pattern is not mentioned in the specification.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 94,
+          "end_line": 131
+        }
+      ]
+    }
+  ]
+}

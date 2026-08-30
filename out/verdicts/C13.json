@@ -1,0 +1,129 @@
+{
+  "cluster_id": "C13",
+  "verdicts": [
+    {
+      "rule_id": "BR-045",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qddssrc/nemp.dspf",
+          "start_line": 2,
+          "end_line": 2
+        },
+        {
+          "file": "corpus/app/qddssrc/nemp.dspf",
+          "start_line": 47,
+          "end_line": 47
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 62,
+          "end_line": 72
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-046",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 62,
+          "end_line": 63
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 78,
+          "end_line": 80
+        },
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 148,
+          "end_line": 150
+        }
+      ]
+    }
+  ],
+  "undocumented": [
+    {
+      "title": "Wrong error message for blank Job field",
+      "confidence": "HIGH",
+      "code_does": "When the Job field is blank, the validation error returned is 'Phone number cannot be blank' instead of a job-related message.",
+      "why_it_matters": "Users will see a misleading error message, making it impossible to diagnose why the form cannot be submitted.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 133,
+          "end_line": 135
+        }
+      ]
+    },
+    {
+      "title": "Employee ID auto-generated as max(EMPNO)+100",
+      "confidence": "HIGH",
+      "code_does": "The new employee ID is computed as the maximum existing numeric EMPNO plus 100, zero-padded to 6 characters.",
+      "why_it_matters": "This ID generation strategy (gaps of 100) and its failure mode (returns blank on SQL error) are not described anywhere in the specification.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 172,
+          "end_line": 194
+        }
+      ]
+    },
+    {
+      "title": "HIREDATE silently set to current date",
+      "confidence": "HIGH",
+      "code_does": "The new employee record's HIREDATE is automatically set to the current system date (%Date) with no user input or display.",
+      "why_it_matters": "Users cannot set or review the hire date on the New Employee screen; this behaviour is not mentioned in the specification.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 93,
+          "end_line": 93
+        }
+      ]
+    },
+    {
+      "title": "BIRTHDATE, EDLEVEL, BONUS, COMM set to dummy defaults on insert",
+      "confidence": "HIGH",
+      "code_does": "Four EMPLOYEE table columns (BIRTHDATE=%Date, EDLEVEL=12, BONUS=0, COMM=0) are hard-coded to placeholder values because the New Employee screen collects no input for them.",
+      "why_it_matters": "These defaults may violate data-quality expectations and are entirely undocumented in the specification.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 96,
+          "end_line": 100
+        }
+      ]
+    },
+    {
+      "title": "Minimum salary band of 30,000 enforced on new hire",
+      "confidence": "HIGH",
+      "code_does": "A salary value below 30,000 is rejected with 'Salary below minimum band', referencing an HR policy dated 2015-03.",
+      "why_it_matters": "This business constraint is not documented in the specification and would be invisible to anyone relying solely on the spec.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 147,
+          "end_line": 150
+        }
+      ]
+    },
+    {
+      "title": "NEWEMP is called from Department Enquiry (option 8), not Employee Enquiry",
+      "confidence": "MEDIUM",
+      "code_does": "The New Employee program is launched by selecting option '8' against a department row in the Department Enquiry screen (DEPTS.PGM), not from within the Employee list screen.",
+      "why_it_matters": "The entry path for creating a new employee is undocumented in the specification rules for this cluster.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 148,
+          "end_line": 150
+        }
+      ]
+    }
+  ]
+}

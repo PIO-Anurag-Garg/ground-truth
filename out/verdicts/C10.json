@@ -1,0 +1,190 @@
+{
+  "cluster_id": "C10",
+  "verdicts": [
+    {
+      "rule_id": "BR-028",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 119,
+          "end_line": 121
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-029",
+      "verdict": "DRIFTED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 114,
+          "end_line": 165
+        },
+        {
+          "file": "corpus/app/qddssrc/nemp.dspf",
+          "start_line": 17,
+          "end_line": 17
+        }
+      ],
+      "spec_says": "The Initial field must not be blank. If it is blank when the user presses Enter, the system shall display the message: Middle initial cannot be blank.",
+      "code_does": "The GetError procedure never checks whether XINIT is blank. No validation guard exists for the middle initial field; a blank value passes through all checks and is written directly to the MIDINIT column (which is NOT NULL in the database)."
+    },
+    {
+      "rule_id": "BR-030",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 123,
+          "end_line": 125
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-031",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 127,
+          "end_line": 131
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-032",
+      "verdict": "DRIFTED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 133,
+          "end_line": 135
+        }
+      ],
+      "spec_says": "The Job field must not be blank. If it is blank when the user presses Enter, the system shall display the message: Job cannot be blank.",
+      "code_does": "When XJOB is blank the code returns the message 'Phone number cannot be blank' instead of 'Job cannot be blank'. The wrong error message is displayed to the user."
+    },
+    {
+      "rule_id": "BR-033",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 137,
+          "end_line": 139
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-034",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 141,
+          "end_line": 145
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-035",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 153,
+          "end_line": 154
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-036",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 157,
+          "end_line": 161
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-037",
+      "verdict": "DRIFTED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/employee.table",
+          "start_line": 26,
+          "end_line": 28
+        }
+      ],
+      "spec_says": "The Phone field value, when stored, must be a digit string that falls within the range 0000 to 9998 inclusive.",
+      "code_does": "The database CHECK constraint on the PHONENO column (CHAR(5)) enforces PHONENO >= '00000' AND PHONENO <= '99998', permitting values up to '99998' (five digits). The spec says the upper bound is 9998 (four digits), but the DB constraint allows five-digit values up to 99998."
+    }
+  ],
+  "undocumented": [
+    {
+      "title": "Minimum salary band enforcement (HR policy floor)",
+      "confidence": "HIGH",
+      "code_does": "If the entered salary is a valid number but less than 30000, the system rejects the submission with the message 'Salary below minimum band'.",
+      "why_it_matters": "This business rule — attributed to a 2015-03 HR policy in a code comment — is entirely absent from the specification; its correctness and the exact threshold cannot be audited against any documented requirement.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 147,
+          "end_line": 150
+        }
+      ]
+    },
+    {
+      "title": "Department field is output-only on the screen",
+      "confidence": "HIGH",
+      "code_does": "The XDEPT field in the display file is defined with output usage (O), meaning the user cannot type into it; the department is always taken from the value passed in by the calling program.",
+      "why_it_matters": "No rule documents that the department field is display-only rather than a user-editable input; this affects the user experience and error-handling model for BR-031.",
+      "citations": [
+        {
+          "file": "corpus/app/qddssrc/nemp.dspf",
+          "start_line": 27,
+          "end_line": 27
+        }
+      ]
+    },
+    {
+      "title": "Automatic employee ID generation by incrementing max existing ID by 100",
+      "confidence": "HIGH",
+      "code_does": "The program derives a new employee number by selecting MAX(INT(EMPNO)) from the EMPLOYEE table and adding 100, then zero-padding to 6 characters.",
+      "why_it_matters": "No specification rule documents this ID generation algorithm; concurrent inserts or non-numeric legacy EMPNO values could produce collisions or errors that are unspecified.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 172,
+          "end_line": 194
+        }
+      ]
+    },
+    {
+      "title": "HIREDATE is always set to the current date; BIRTHDATE and EDLEVEL are hard-coded defaults",
+      "confidence": "MEDIUM",
+      "code_does": "HandleInsert unconditionally sets HIREDATE to %Date (today), BIRTHDATE to %Date (today), and EDLEVEL to 12, ignoring any user input or real birth/education data.",
+      "why_it_matters": "No specification rule covers how these fields are populated; storing today's date as the employee's birth date is likely incorrect and could cause data quality issues.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 93,
+          "end_line": 100
+        }
+      ]
+    }
+  ]
+}

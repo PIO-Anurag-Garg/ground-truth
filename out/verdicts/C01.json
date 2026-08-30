@@ -1,0 +1,78 @@
+{
+  "cluster_id": "C01",
+  "verdicts": [
+    {
+      "rule_id": "BR-001",
+      "verdict": "DRIFTED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/employee.table",
+          "start_line": 26,
+          "end_line": 28
+        }
+      ],
+      "spec_says": "The system must not permit any employee record whose telephone number falls outside the range 0000 to 9998 inclusive.",
+      "code_does": "The CHECK constraint is defined on a CHAR(5) column as PHONENO >= '00000' AND PHONENO <= '99998', enforcing a string-comparison upper bound of '99998' (five digits, value 99998) rather than the specified maximum of 9998. Values from 9999 to 99998 are incorrectly permitted, and the five-character column width also allows five-digit numbers well beyond the stated maximum."
+    }
+  ],
+  "undocumented": [
+    {
+      "title": "popemp generates hex phone numbers that may be non-numeric",
+      "confidence": "HIGH",
+      "code_does": "The POPEMP population procedure derives PHONENO via substr(HEX(rand()), 1, 4), producing four-character hex strings (digits 0–9 and letters A–F) that can contain alphabetic characters and are stored into the PHONENO column.",
+      "why_it_matters": "The resulting phone values may not be numeric strings; they bypass any intended numeric-range semantics and could populate the table with values that are meaningless as telephone numbers.",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/popemp.sqlprc",
+          "start_line": 72,
+          "end_line": 72
+        }
+      ]
+    },
+    {
+      "title": "PHONENO column is CHAR(5) but spec and UI treat it as a 4-digit number",
+      "confidence": "MEDIUM",
+      "code_does": "The EMPLOYEE table defines PHONENO as CHAR(5), while the display file field XTEL is also 5A; the sample test data and the spec treat phone numbers as four digits (e.g. '3978', '3476', '2167'), leaving the fifth character position unused or ambiguous.",
+      "why_it_matters": "The mismatch between the column width (5) and the intended four-digit format means the constraint bounds ('00000'–'99998') operate on five-character strings, silently widening the permitted range beyond what the specification intends.",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/employee.table",
+          "start_line": 9,
+          "end_line": 9
+        },
+        {
+          "file": "corpus/app/qtestsrc/empdet.test.sqlrpgle",
+          "start_line": 44,
+          "end_line": 49
+        }
+      ]
+    },
+    {
+      "title": "Application-layer phone validation does not enforce upper bound",
+      "confidence": "HIGH",
+      "code_does": "The GetError procedure in newemp.pgm.sqlrpgle validates that XTEL is non-blank and parseable as an integer, but applies no numeric range check; it relies entirely on the database CHECK constraint to reject out-of-range values.",
+      "why_it_matters": "Users receive no early feedback if they enter a phone number above 9998; the error only surfaces as a database constraint violation, which may produce a generic or unhelpful error message.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 153,
+          "end_line": 162
+        }
+      ]
+    },
+    {
+      "title": "Minimum salary band of 30000 enforced in application layer only",
+      "confidence": "HIGH",
+      "code_does": "newemp.pgm.sqlrpgle enforces a minimum salary of 30000 in the GetError procedure, referencing an HR policy from 2015-03, but no equivalent CHECK constraint exists on the EMPLOYEE table.",
+      "why_it_matters": "The salary floor can be bypassed by any insertion path that does not go through the NEWEMP program (e.g. direct SQL, the POPEMP procedure), leaving the business rule unprotected at the database level.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 147,
+          "end_line": 150
+        }
+      ]
+    }
+  ]
+}

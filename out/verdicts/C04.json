@@ -1,0 +1,70 @@
+{
+  "cluster_id": "C04",
+  "verdicts": [
+    {
+      "rule_id": "BR-009",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qddssrc/depts.dspf",
+          "start_line": 2,
+          "end_line": 2
+        },
+        {
+          "file": "corpus/app/qddssrc/depts.dspf",
+          "start_line": 30,
+          "end_line": 31
+        },
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 71,
+          "end_line": 72
+        },
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 76,
+          "end_line": 79
+        },
+        {
+          "file": "corpus/app/qrpgleref/constants.rpgleinc",
+          "start_line": 3,
+          "end_line": 3
+        }
+      ]
+    }
+  ],
+  "undocumented": [
+    {
+      "title": "F3 defined as CA (Command Attention) key, not CF (Command Function)",
+      "confidence": "HIGH",
+      "code_does": "CA03(03) in the DDS causes F3 to return without transmitting modified screen data to the program.",
+      "why_it_matters": "Any data entered or changed by the user before pressing F3 is silently discarded; no spec rule documents this discard behaviour.",
+      "citations": [
+        {
+          "file": "corpus/app/qddssrc/depts.dspf",
+          "start_line": 2,
+          "end_line": 2
+        }
+      ]
+    },
+    {
+      "title": "Function key detection via INFDS FUNKEY field rather than indicators",
+      "confidence": "MEDIUM",
+      "code_does": "The program reads the last-used function key from position 369 of the file information data structure (FILEINFO.FUNKEY) and compares it to hex constants.",
+      "why_it_matters": "This is an implementation-level technique not described by any specification rule; it bypasses the indicator approach implied by CA03(03) and couples the program to INFDS layout details.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 42,
+          "end_line": 51
+        },
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 71,
+          "end_line": 71
+        }
+      ]
+    }
+  ]
+}

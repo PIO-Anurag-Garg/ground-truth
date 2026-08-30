@@ -1,0 +1,154 @@
+{
+  "cluster_id": "C03",
+  "verdicts": [
+    {
+      "rule_id": "BR-006",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 144,
+          "end_line": 147
+        },
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 4,
+          "end_line": 6
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-007",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 148,
+          "end_line": 150
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 7,
+          "end_line": 9
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 53,
+          "end_line": 53
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-008",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 153,
+          "end_line": 157
+        }
+      ]
+    }
+  ],
+  "undocumented": [
+    {
+      "title": "Option 8 clears selection field even when NewEmp program is not invoked (unknown option entered)",
+      "confidence": "HIGH",
+      "code_does": "Any non-blank value in XSEL — including unrecognised option codes — causes the selection field to be blanked and the subfile record to be updated, even though no action was taken for that option.",
+      "why_it_matters": "Users entering an invalid option code receive no error message; the option is silently discarded and cleared, which may cause confusion.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 144,
+          "end_line": 157
+        }
+      ]
+    },
+    {
+      "title": "TODO comment acknowledges stale design: department pass-through was considered incomplete",
+      "confidence": "MEDIUM",
+      "code_does": "A TODO comment in newemp.pgm.sqlrpgle (line 5) states 'need a way to let the parent program pass in a department id', yet the parameter interface already exists and is used.",
+      "why_it_matters": "The stale TODO may mislead maintainers into thinking the department pre-selection feature is unimplemented, when it is in fact fully wired.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 5,
+          "end_line": 5
+        }
+      ]
+    },
+    {
+      "title": "New employee minimum salary enforcement (HR policy floor of 30,000)",
+      "confidence": "HIGH",
+      "code_does": "The GetError procedure in newemp.pgm.sqlrpgle rejects any salary below 30,000 with the message 'Salary below minimum band'.",
+      "why_it_matters": "This business rule (referenced as a 2015-03 HR policy) is enforced in code but is not described in any specification rule in this cluster.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 147,
+          "end_line": 150
+        }
+      ]
+    },
+    {
+      "title": "Employee ID auto-generation on New Employee screen",
+      "confidence": "HIGH",
+      "code_does": "On entry to the New Employee screen, getNewEmpId() queries the maximum existing EMPNO, increments it by 100, and pre-fills the employee ID field.",
+      "why_it_matters": "This auto-generation behaviour is not described in any specification rule and could produce unexpected IDs if the max EMPNO is not purely numeric.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 45,
+          "end_line": 51
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 172,
+          "end_line": 194
+        }
+      ]
+    },
+    {
+      "title": "Employee List screen displays total salaries for the department",
+      "confidence": "HIGH",
+      "code_does": "After loading the employee subfile, the Employees program retrieves the department's total salaries via getDeptDetail() and populates the XTOT field on the screen.",
+      "why_it_matters": "No specification rule describes the display of aggregate salary data on the Employee List screen, making this behaviour unaudited.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 52,
+          "end_line": 58
+        }
+      ]
+    },
+    {
+      "title": "F5 refresh on Employee List screen",
+      "confidence": "HIGH",
+      "code_does": "Pressing F5 on the Employee List screen calls LoadSubfile() to refresh the employee list from the database.",
+      "why_it_matters": "No specification rule describes this refresh capability for the Employee List screen.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 67,
+          "end_line": 68
+        }
+      ]
+    },
+    {
+      "title": "Employee List screen option 5 displays employee ID via DSPLY (debug stub)",
+      "confidence": "HIGH",
+      "code_does": "In employees.pgm.sqlrpgle, option 5 on an employee row executes 'DSPLY XID', which is a debug display operation rather than any production screen navigation.",
+      "why_it_matters": "This appears to be an incomplete or debug implementation; no production behaviour is specified or implemented for drilling into a single employee record from the Employee List screen.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 147,
+          "end_line": 149
+        }
+      ]
+    }
+  ]
+}

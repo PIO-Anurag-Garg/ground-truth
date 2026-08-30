@@ -1,0 +1,143 @@
+{
+  "cluster_id": "C08",
+  "verdicts": [
+    {
+      "rule_id": "BR-019",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qddssrc/nemp.dspf",
+          "start_line": 7,
+          "end_line": 7
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 45,
+          "end_line": 51
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-020",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qddssrc/nemp.dspf",
+          "start_line": 27,
+          "end_line": 27
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 53,
+          "end_line": 53
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-021",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qddssrc/nemp.dspf",
+          "start_line": 12,
+          "end_line": 12
+        },
+        {
+          "file": "corpus/app/qddssrc/nemp.dspf",
+          "start_line": 17,
+          "end_line": 17
+        },
+        {
+          "file": "corpus/app/qddssrc/nemp.dspf",
+          "start_line": 22,
+          "end_line": 22
+        },
+        {
+          "file": "corpus/app/qddssrc/nemp.dspf",
+          "start_line": 32,
+          "end_line": 32
+        },
+        {
+          "file": "corpus/app/qddssrc/nemp.dspf",
+          "start_line": 37,
+          "end_line": 37
+        },
+        {
+          "file": "corpus/app/qddssrc/nemp.dspf",
+          "start_line": 42,
+          "end_line": 42
+        }
+      ]
+    }
+  ],
+  "undocumented": [
+    {
+      "title": "Employee ID generated as max(EMPNO)+100, not max+1",
+      "confidence": "HIGH",
+      "code_does": "getNewEmpId queries the maximum existing integer EMPNO and adds 100 to produce the next ID, leaving gaps of 99 between auto-generated employee numbers.",
+      "why_it_matters": "The generation strategy is not specified; if any downstream logic assumes contiguous IDs it will break, and auditors may flag unexplained ID gaps.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 182,
+          "end_line": 194
+        }
+      ]
+    },
+    {
+      "title": "Minimum salary band of 30,000 enforced on new hire creation",
+      "confidence": "HIGH",
+      "code_does": "GetError rejects any salary value below 30,000 with the message 'Salary below minimum band', citing a 2015-03 HR policy.",
+      "why_it_matters": "This HR policy constraint is not documented in any specification rule; it is a hidden business rule that silently blocks valid-looking input.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 147,
+          "end_line": 150
+        }
+      ]
+    },
+    {
+      "title": "Copy-paste bug: blank Job field produces 'Phone number cannot be blank' error",
+      "confidence": "HIGH",
+      "code_does": "When XJOB is blank, GetError returns the string 'Phone number cannot be blank' instead of a job-related message.",
+      "why_it_matters": "The misleading error message will confuse users and is evidence of a latent defect in the validation logic.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 133,
+          "end_line": 135
+        }
+      ]
+    },
+    {
+      "title": "HIREDATE automatically set to current system date at insert",
+      "confidence": "HIGH",
+      "code_does": "HandleInsert assigns %Date (today's date) to newEmp.HIREDATE without any user input or confirmation.",
+      "why_it_matters": "No specification rule describes how HIREDATE is set; if back-dated hires are ever needed this hard-coding will require a code change.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 93,
+          "end_line": 93
+        }
+      ]
+    },
+    {
+      "title": "BIRTHDATE, EDLEVEL, BONUS, and COMM silently set to stub defaults at insert",
+      "confidence": "HIGH",
+      "code_does": "HandleInsert sets BIRTHDATE to today's date, EDLEVEL to 12, BONUS to 0, and COMM to 0 unconditionally, with a comment acknowledging these are not real values.",
+      "why_it_matters": "These fields contain fabricated data in the database after every new-employee creation; no specification rule describes or justifies this behaviour.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 96,
+          "end_line": 100
+        }
+      ]
+    }
+  ]
+}

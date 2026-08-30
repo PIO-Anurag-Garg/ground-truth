@@ -1,0 +1,150 @@
+{
+  "cluster_id": "C16",
+  "verdicts": [
+    {
+      "rule_id": "BR-055",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        { "file": "corpus/app/qsqlsrc/popemp.sqlprc", "start_line": 10, "end_line": 12 },
+        { "file": "corpus/app/qsqlsrc/popemp.sqlprc", "start_line": 43, "end_line": 45 },
+        { "file": "corpus/app/qsqlsrc/popemp.sqlprc", "start_line": 48, "end_line": 48 }
+      ]
+    },
+    {
+      "rule_id": "BR-056",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        { "file": "corpus/app/qsqlsrc/popemp.sqlprc", "start_line": 43, "end_line": 45 },
+        { "file": "corpus/app/qsqlsrc/popemp.sqlprc", "start_line": 48, "end_line": 48 },
+        { "file": "corpus/app/qsqlsrc/popemp.sqlprc", "start_line": 60, "end_line": 60 }
+      ]
+    },
+    {
+      "rule_id": "BR-057",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        { "file": "corpus/app/qsqlsrc/popemp.sqlprc", "start_line": 66, "end_line": 70 }
+      ]
+    },
+    {
+      "rule_id": "BR-058",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        { "file": "corpus/app/qsqlsrc/popemp.sqlprc", "start_line": 78, "end_line": 80 },
+        { "file": "corpus/app/qsqlsrc/employee.table", "start_line": 15, "end_line": 17 }
+      ]
+    },
+    {
+      "rule_id": "BR-059",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        { "file": "corpus/app/qsqlsrc/popemp.sqlprc", "start_line": 73, "end_line": 73 }
+      ]
+    },
+    {
+      "rule_id": "BR-060",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        { "file": "corpus/app/qsqlsrc/popemp.sqlprc", "start_line": 77, "end_line": 77 }
+      ]
+    },
+    {
+      "rule_id": "BR-061",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        { "file": "corpus/app/qsqlsrc/popemp.sqlprc", "start_line": 75, "end_line": 75 }
+      ]
+    },
+    {
+      "rule_id": "BR-062",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        { "file": "corpus/app/qsqlsrc/popemp.sqlprc", "start_line": 10, "end_line": 12 }
+      ]
+    }
+  ],
+  "undocumented": [
+    {
+      "title": "Default nationality is 'gb' (Great Britain)",
+      "confidence": "HIGH",
+      "code_does": "When no nationality is supplied the procedure defaults to 'gb'; the spec only says 'a default nationality shall be applied' without specifying which one.",
+      "why_it_matters": "Callers relying on spec alone cannot predict the language/locale of generated names for the default case.",
+      "citations": [
+        { "file": "corpus/app/qsqlsrc/popemp.sqlprc", "start_line": 11, "end_line": 11 }
+      ]
+    },
+    {
+      "title": "Names fetched from external HTTP API (randomuser.me)",
+      "confidence": "HIGH",
+      "code_does": "Each iteration issues an HTTP GET to https://randomuser.me/api/?nat=<Nationality> and parses the JSON response for first name, last name, and gender.",
+      "why_it_matters": "Network availability and third-party API uptime become a hard dependency; no spec rule mentions this external dependency.",
+      "citations": [
+        { "file": "corpus/app/qsqlsrc/popemp.sqlprc", "start_line": 49, "end_line": 56 },
+        { "file": "corpus/app/qsqlsrc/popemp.sqlprc", "start_line": 61, "end_line": 63 }
+      ]
+    },
+    {
+      "title": "SEX field populated from API gender response",
+      "confidence": "HIGH",
+      "code_does": "The employee SEX column is set to the first character of the 'gender' field returned by the randomuser.me API (e.g. 'm' or 'f').",
+      "why_it_matters": "Gender assignment is undocumented in any spec rule; the field's derivation and valid values are not specified.",
+      "citations": [
+        { "file": "corpus/app/qsqlsrc/popemp.sqlprc", "start_line": 76, "end_line": 76 }
+      ]
+    },
+    {
+      "title": "MIDINIT derived as first character of first name",
+      "confidence": "HIGH",
+      "code_does": "The MIDINIT (middle initial) column is set to substr(first_name, 1, 1) — the first letter of the employee's first name, not a true middle initial.",
+      "why_it_matters": "No spec rule describes how MIDINIT is populated; using the first-name initial is semantically incorrect and could mislead downstream consumers.",
+      "citations": [
+        { "file": "corpus/app/qsqlsrc/popemp.sqlprc", "start_line": 62, "end_line": 62 }
+      ]
+    },
+    {
+      "title": "JOB column assigned a random hex-based code",
+      "confidence": "HIGH",
+      "code_does": "Each employee's JOB column is set to 'JOB' concatenated with 4 random hex characters (e.g. 'JOB3F9A').",
+      "why_it_matters": "No spec rule describes how the JOB field is populated; the format is undocumented.",
+      "citations": [
+        { "file": "corpus/app/qsqlsrc/popemp.sqlprc", "start_line": 74, "end_line": 74 }
+      ]
+    },
+    {
+      "title": "PHONENO generated as 4-char hex string into a CHAR(5) column",
+      "confidence": "HIGH",
+      "code_does": "Phone number is set to substr(HEX(rand()), 1, 4), producing a 4-character hex string, while the EMPLOYEE table defines PHONENO as CHAR(5) with a CHECK constraint requiring '00000'–'99998'.",
+      "why_it_matters": "Hex digits A–F do not satisfy the all-numeric CHECK constraint on PHONENO, which may cause insertion failures at runtime; this mismatch is undocumented.",
+      "citations": [
+        { "file": "corpus/app/qsqlsrc/popemp.sqlprc", "start_line": 72, "end_line": 72 },
+        { "file": "corpus/app/qsqlsrc/employee.table", "start_line": 26, "end_line": 28 }
+      ]
+    },
+    {
+      "title": "Education level upper bound is 19 (not 20)",
+      "confidence": "HIGH",
+      "code_does": "Ed level is computed as 12 + int(rand() * 8); since int(rand() * 8) yields 0–7, the maximum possible value is 19 inclusive, consistent with BR-061.",
+      "why_it_matters": "The expression int(rand()*8) never produces 8, so the value 20 is unreachable; this boundary detail is not captured in the spec.",
+      "citations": [
+        { "file": "corpus/app/qsqlsrc/popemp.sqlprc", "start_line": 75, "end_line": 75 }
+      ]
+    },
+    {
+      "title": "INSERT uses WITH NC (no-commit) isolation",
+      "confidence": "HIGH",
+      "code_does": "Each INSERT statement is executed with 'WITH NC' (no commitment control), meaning records are not written under transaction control.",
+      "why_it_matters": "Partial population runs cannot be rolled back on failure; this transactional behaviour is not documented in any spec rule.",
+      "citations": [
+        { "file": "corpus/app/qsqlsrc/popemp.sqlprc", "start_line": 83, "end_line": 86 }
+      ]
+    }
+  ]
+}

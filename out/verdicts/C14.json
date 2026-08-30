@@ -1,0 +1,159 @@
+{
+  "cluster_id": "C14",
+  "verdicts": [
+    {
+      "rule_id": "BR-047",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qddssrc/nemp.dspf",
+          "start_line": 7,
+          "end_line": 7
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 45,
+          "end_line": 51
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-048",
+      "verdict": "DRIFTED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 182,
+          "end_line": 192
+        }
+      ],
+      "spec_says": "The system shall assign to each new employee the number that is exactly one greater than the highest identifier currently in use, so that no values are skipped and no gaps appear in the identifier sequence.",
+      "code_does": "The code computes highestEmpId + 100 (not +1), so each new identifier is 100 greater than the current maximum, deliberately skipping 99 values each time."
+    },
+    {
+      "rule_id": "BR-049",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 175,
+          "end_line": 191
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-050",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/employee.table",
+          "start_line": 4,
+          "end_line": 4
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 42,
+          "end_line": 42
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 178,
+          "end_line": 178
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-051",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 45,
+          "end_line": 51
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 87,
+          "end_line": 87
+        }
+      ]
+    }
+  ],
+  "undocumented": [
+    {
+      "title": "New employee ID increments by 100, not 1",
+      "confidence": "HIGH",
+      "code_does": "getNewEmpId computes MAX(EMPNO) + 100 rather than MAX(EMPNO) + 1, intentionally reserving a block of 99 unused identifier values between each new hire.",
+      "why_it_matters": "This contradicts BR-048 and may exhaust the six-digit identifier space roughly 100 times faster than the spec intends; it is also unexplained by any documented policy.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 188,
+          "end_line": 188
+        }
+      ]
+    },
+    {
+      "title": "Data-population procedure (popemp) assigns IDs by row count, not MAX+1",
+      "confidence": "MEDIUM",
+      "code_does": "popemp.sqlprc derives the starting employee number from COUNT(empno)+1, which produces incorrect IDs if any rows have been deleted, rather than using MAX(empno)+1.",
+      "why_it_matters": "This alternative ID-assignment path bypasses both the sequential-increment rule (BR-048) and the screen-based assignment rule (BR-051), and could create duplicate EMPNO values if rows are ever removed.",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/popemp.sqlprc",
+          "start_line": 43,
+          "end_line": 45
+        },
+        {
+          "file": "corpus/app/qsqlsrc/popemp.sqlprc",
+          "start_line": 60,
+          "end_line": 60
+        }
+      ]
+    },
+    {
+      "title": "Salary minimum band enforced at £30,000 by HR policy comment",
+      "confidence": "HIGH",
+      "code_does": "GetError rejects any new-hire salary below 30000, citing a 2015-03 HR policy, and returns a 'Salary below minimum band' error.",
+      "why_it_matters": "This business rule is hard-coded with a policy date comment but is not described in any specification rule in this cluster or referenced by the candidate file set.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 147,
+          "end_line": 150
+        }
+      ]
+    },
+    {
+      "title": "GetError validation message mislabels job field as phone number",
+      "confidence": "HIGH",
+      "code_does": "The validation for a blank XJOB field returns the error string 'Phone number cannot be blank' instead of a job-related message.",
+      "why_it_matters": "This is a latent user-facing defect: users who leave Job blank will see a misleading error message referencing the phone number field.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 133,
+          "end_line": 135
+        }
+      ]
+    },
+    {
+      "title": "BIRTHDATE and EDLEVEL are silently set to fixed defaults on new-hire insert",
+      "confidence": "HIGH",
+      "code_does": "HandleInsert always sets BIRTHDATE to the current date and EDLEVEL to 12, ignoring any real values, with the comment 'We don't actually care about these fields'.",
+      "why_it_matters": "These fields exist in the EMPLOYEE table schema as meaningful data points; silently filling them with dummy values could corrupt reporting or downstream analytics.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 96,
+          "end_line": 99
+        }
+      ]
+    }
+  ]
+}

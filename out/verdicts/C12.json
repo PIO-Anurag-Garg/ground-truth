@@ -1,0 +1,126 @@
+{
+  "cluster_id": "C12",
+  "verdicts": [
+    {
+      "rule_id": "BR-041",
+      "verdict": "DRIFTED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 82,
+          "end_line": 112
+        }
+      ],
+      "spec_says": "Education level shall be stored as zero.",
+      "code_does": "Education level (EDLEVEL) is hard-coded to 12, not zero (line 98)."
+    },
+    {
+      "rule_id": "BR-042",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 68,
+          "end_line": 70
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 78,
+          "end_line": 80
+        },
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 148,
+          "end_line": 151
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-043",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 68,
+          "end_line": 72
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-044",
+      "verdict": "DRIFTED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 45,
+          "end_line": 51
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 114,
+          "end_line": 165
+        }
+      ],
+      "spec_says": "The message text shall be 'Unable to automatically generate a new ID', and the user may not successfully submit a new employee until a valid identifier can be presented.",
+      "code_does": "The message text contains a typo: 'Unable to automatically generate an new ID.' (line 48). Additionally, when no valid ID was generated, the code sets no guard to block submission — GetError() never checks whether XID is blank/valid, so the user can press Enter and attempt an insert with an empty EMPNO, which fails only because of a SQL primary-key constraint (producing 'Unable to create employee' instead of the ID-error message)."
+    }
+  ],
+  "undocumented": [
+    {
+      "title": "BIRTHDATE populated with current system date on insert",
+      "confidence": "HIGH",
+      "code_does": "When a new employee is inserted, the BIRTHDATE field is set to %Date (the current system date), not a value entered by the user.",
+      "why_it_matters": "No specification rule describes how BIRTHDATE is populated; storing today's date as a birth date is almost certainly incorrect and cannot be audited against any rule.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 96,
+          "end_line": 98
+        }
+      ]
+    },
+    {
+      "title": "EDLEVEL hard-coded to 12 instead of zero",
+      "confidence": "HIGH",
+      "code_does": "The education level field is always written as 12, despite a developer comment stating 'We don't actually care about these fields.'",
+      "why_it_matters": "The spec requires EDLEVEL to be zero; the non-zero default will silently corrupt the education-level data for every employee created through this screen.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 96,
+          "end_line": 99
+        }
+      ]
+    },
+    {
+      "title": "Salary minimum-band validation enforces HR policy not in spec",
+      "confidence": "MEDIUM",
+      "code_does": "GetError() rejects salaries below 30000, returning 'Salary below minimum band', citing a 2015-03 HR policy.",
+      "why_it_matters": "This business rule is implemented in code but has no corresponding specification rule; its correctness and continued applicability cannot be audited.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 147,
+          "end_line": 150
+        }
+      ]
+    },
+    {
+      "title": "GetError job-blank check emits misleading 'Phone number cannot be blank' message",
+      "confidence": "HIGH",
+      "code_does": "When XJOB (the Job field) is blank, the error message returned is 'Phone number cannot be blank' rather than a job-related message.",
+      "why_it_matters": "This is a copy-paste bug that presents a misleading error to the user; no spec rule describes the expected validation message for a blank Job field.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 133,
+          "end_line": 135
+        }
+      ]
+    }
+  ]
+}

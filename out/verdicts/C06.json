@@ -1,0 +1,105 @@
+{
+  "cluster_id": "C06",
+  "verdicts": [
+    {
+      "rule_id": "BR-015",
+      "verdict": "DRIFTED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qddssrc/emps.dspf",
+          "start_line": 33,
+          "end_line": 36
+        },
+        {
+          "file": "corpus/app/qrpglesrc/empdet.sqlrpgle",
+          "start_line": 42,
+          "end_line": 56
+        },
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 58,
+          "end_line": 58
+        }
+      ],
+      "spec_says": "The total figure represents the sum of salary, bonus, and commission for every employee shown in the list.",
+      "code_does": "getDeptDetail computes only sum(salary) for the department; bonus and commission are excluded from the aggregation. The XTOT field on the screen is populated from this salary-only total."
+    },
+    {
+      "rule_id": "BR-016",
+      "verdict": "DRIFTED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/empdet.sqlrpgle",
+          "start_line": 42,
+          "end_line": 56
+        },
+        {
+          "file": "corpus/app/qrpgleref/empdet.rpgleinc",
+          "start_line": 13,
+          "end_line": 13
+        },
+        {
+          "file": "corpus/app/qddssrc/emps.dspf",
+          "start_line": 36,
+          "end_line": 36
+        }
+      ],
+      "spec_says": "The total shall be the arithmetic sum of each employee's salary plus bonus plus commission, aggregated across all employees in the department, displayed to two decimal places.",
+      "code_does": "The SQL in getDeptDetail aggregates only salary (select sum(salary) ... from employee where workdept = :deptno). Bonus and commission are not included. Two decimal places are correctly maintained in the field definitions (packed(9:2) and 9S 2)."
+    },
+    {
+      "rule_id": "BR-017",
+      "verdict": "DRIFTED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qddssrc/emps.dspf",
+          "start_line": 36,
+          "end_line": 36
+        },
+        {
+          "file": "corpus/app/qrpgleref/empdet.rpgleinc",
+          "start_line": 13,
+          "end_line": 13
+        }
+      ],
+      "spec_says": "The total field shall accommodate values up to nine digits before the decimal point.",
+      "code_does": "The display field XTOT is defined as 9S 2 (9 total digits, 2 decimal places), which allows only 7 digits before the decimal point. The backing data structure field totalsalaries is packed(9:2), also yielding only 7 digits before the decimal."
+    }
+  ],
+  "undocumented": [
+    {
+      "title": "Test expects totalsalaries to include bonus and commission but SQL omits them",
+      "confidence": "HIGH",
+      "code_does": "The unit test in empdet.test.sqlrpgle asserts totalsalaries = 90160 for department A00, a value that equals salary+bonus+comm for those employees, yet the production SQL only sums salary — creating an inconsistency between the test expectation and the implementation.",
+      "why_it_matters": "The test would fail against the current production implementation, indicating either the test or the SQL is out of sync and the defect may be undetected if tests are not being run against the current code.",
+      "citations": [
+        {
+          "file": "corpus/app/qtestsrc/empdet.test.sqlrpgle",
+          "start_line": 117,
+          "end_line": 122
+        },
+        {
+          "file": "corpus/app/qrpglesrc/empdet.sqlrpgle",
+          "start_line": 46,
+          "end_line": 48
+        }
+      ]
+    },
+    {
+      "title": "Total field is not refreshed when F5=Refresh is pressed",
+      "confidence": "MEDIUM",
+      "code_does": "When the user presses F5 (Refresh), LoadSubfile() is called to reload the employee list subfile, but getDeptDetail() and the XTOT assignment are not repeated, so the displayed total is not recalculated on refresh.",
+      "why_it_matters": "If employee data changes between the initial load and a refresh, the total shown will be stale while the list is current, leading to a visible inconsistency on screen.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 64,
+          "end_line": 72
+        }
+      ]
+    }
+  ]
+}

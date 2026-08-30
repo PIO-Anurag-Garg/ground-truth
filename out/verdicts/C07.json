@@ -1,0 +1,75 @@
+{
+  "cluster_id": "C07",
+  "verdicts": [
+    {
+      "rule_id": "BR-018",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qddssrc/emps.dspf",
+          "start_line": 2,
+          "end_line": 2
+        },
+        {
+          "file": "corpus/app/qddssrc/emps.dspf",
+          "start_line": 39,
+          "end_line": 39
+        },
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 65,
+          "end_line": 66
+        },
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 75,
+          "end_line": 76
+        },
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 145,
+          "end_line": 147
+        }
+      ]
+    }
+  ],
+  "undocumented": [
+    {
+      "title": "F12 terminates program with *INLR=*ON rather than a simple return",
+      "confidence": "MEDIUM",
+      "code_does": "When F12 is pressed, the employees program sets *INLR = *ON before returning, which fully closes the program and releases all resources rather than leaving it dormant in the call stack.",
+      "why_it_matters": "If the program were ever called from a context that expects to re-activate a dormant activation group, *INLR=*ON would cause loss of any retained state; no specification rule addresses this lifecycle behaviour.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 65,
+          "end_line": 66
+        },
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 75,
+          "end_line": 76
+        }
+      ]
+    },
+    {
+      "title": "Employee List screen displays total department salaries (XTOT) in the subfile control",
+      "confidence": "HIGH",
+      "code_does": "The program fetches total salary data via getDeptDetail() and writes it to the XTOT field displayed in the subfile control header before entering the main interaction loop.",
+      "why_it_matters": "No specification rule in the assigned cluster (or referenced in BR-018) describes the presence of an aggregate salary total on the Employee List screen.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 52,
+          "end_line": 58
+        },
+        {
+          "file": "corpus/app/qddssrc/emps.dspf",
+          "start_line": 33,
+          "end_line": 36
+        }
+      ]
+    }
+  ]
+}

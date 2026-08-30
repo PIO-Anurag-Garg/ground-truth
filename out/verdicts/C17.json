@@ -1,0 +1,192 @@
+{
+  "cluster_id": "C17",
+  "verdicts": [
+    {
+      "rule_id": "BR-063",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 63,
+          "end_line": 79
+        },
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 4,
+          "end_line": 10
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-064",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 144,
+          "end_line": 148
+        },
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 4,
+          "end_line": 6
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-065",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 148,
+          "end_line": 150
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 7,
+          "end_line": 9
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 53,
+          "end_line": 53
+        },
+        {
+          "file": "corpus/app/qddssrc/nemp.dspf",
+          "start_line": 27,
+          "end_line": 27
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-066",
+      "verdict": "CONFIRMED",
+      "confidence": "MEDIUM",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 65,
+          "end_line": 66
+        },
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 75,
+          "end_line": 76
+        },
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 62,
+          "end_line": 63
+        },
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 64,
+          "end_line": 76
+        },
+        {
+          "file": "corpus/app/qddssrc/depts.dspf",
+          "start_line": 17,
+          "end_line": 17
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-067",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qddssrc/depts.dspf",
+          "start_line": 2,
+          "end_line": 2
+        },
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 71,
+          "end_line": 72
+        },
+        {
+          "file": "corpus/app/qrpglesrc/depts.pgm.sqlrpgle",
+          "start_line": 78,
+          "end_line": 79
+        }
+      ]
+    }
+  ],
+  "undocumented": [
+    {
+      "title": "Employee List silently exits if department not found",
+      "confidence": "HIGH",
+      "code_does": "employees.pgm.sqlrpgle returns immediately (without displaying anything or showing an error) if getDeptDetail() reports the department was not found.",
+      "why_it_matters": "A user or caller passing a non-existent department code will see the screen disappear instantly with no feedback, and no specification rule describes this failure mode.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 52,
+          "end_line": 56
+        }
+      ]
+    },
+    {
+      "title": "Stale TODO comment in New Employee program despite working parameter interface",
+      "confidence": "HIGH",
+      "code_does": "newemp.pgm.sqlrpgle contains a TODO comment saying 'need a way to let the parent program pass in a department id', but the program already declares and uses a currentDepartment parameter via dcl-pi.",
+      "why_it_matters": "The comment is misleading and suggests the department-passing mechanism may have been retrofitted without removing the original note, which could confuse future maintainers about the intent of the code.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 5,
+          "end_line": 9
+        }
+      ]
+    },
+    {
+      "title": "New Employee ID auto-generated as max(empno)+100, not +1",
+      "confidence": "HIGH",
+      "code_does": "getNewEmpId() selects the maximum integer employee number and adds 100 to it, leaving a gap of 100 ID slots between the last existing employee and any newly created one.",
+      "why_it_matters": "The large increment is undocumented and could rapidly exhaust the 6-digit numeric ID space if called frequently; no specification rule describes the ID generation strategy.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 172,
+          "end_line": 195
+        }
+      ]
+    },
+    {
+      "title": "GetError() validation message for Job field incorrectly reads 'Phone number cannot be blank'",
+      "confidence": "HIGH",
+      "code_does": "When the XJOB field is blank, GetError() returns the string 'Phone number cannot be blank' instead of a message referring to Job.",
+      "why_it_matters": "This is a copy-paste error in the validation logic that will display a misleading error message to the user when the Job field is omitted.",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/newemp.pgm.sqlrpgle",
+          "start_line": 133,
+          "end_line": 135
+        }
+      ]
+    },
+    {
+      "title": "F5=Refresh key on Employee List reloads subfile from database",
+      "confidence": "HIGH",
+      "code_does": "employees.pgm.sqlrpgle handles F5 by calling LoadSubfile(), re-querying the database and refreshing the displayed employee list for the current department.",
+      "why_it_matters": "This refresh capability is not mentioned in any specification rule and represents a functional behaviour that could have UX implications (e.g., unsaved selections are discarded).",
+      "citations": [
+        {
+          "file": "corpus/app/qrpglesrc/employees.pgm.sqlrpgle",
+          "start_line": 67,
+          "end_line": 68
+        },
+        {
+          "file": "corpus/app/qddssrc/emps.dspf",
+          "start_line": 3,
+          "end_line": 3
+        }
+      ]
+    }
+  ]
+}

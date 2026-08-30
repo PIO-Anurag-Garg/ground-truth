@@ -1,0 +1,110 @@
+{
+  "cluster_id": "C15",
+  "verdicts": [
+    {
+      "rule_id": "BR-052",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/popdept.sqlprc",
+          "start_line": 18,
+          "end_line": 39
+        },
+        {
+          "file": "corpus/app/qsqlsrc/popdept.sqlprc",
+          "start_line": 26,
+          "end_line": 32
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-053",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/popdept.sqlprc",
+          "start_line": 20,
+          "end_line": 23
+        }
+      ]
+    },
+    {
+      "rule_id": "BR-054",
+      "verdict": "CONFIRMED",
+      "confidence": "HIGH",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/popdept.sqlprc",
+          "start_line": 5,
+          "end_line": 7
+        }
+      ]
+    }
+  ],
+  "undocumented": [
+    {
+      "title": "INSERT uses WITH NC (no-commit) isolation",
+      "confidence": "HIGH",
+      "code_does": "Each INSERT into the DEPARTMENT table is executed with WITH NC (no commitment control), meaning rows are written without any transaction isolation.",
+      "why_it_matters": "No spec rule describes the commit/isolation behaviour; if the procedure is called inside a larger transaction, the inserted rows bypass rollback and may persist even if the calling transaction is rolled back.",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/popdept.sqlprc",
+          "start_line": 35,
+          "end_line": 36
+        }
+      ]
+    },
+    {
+      "title": "ADMRDEPT foreign key self-reference may cause constraint violation",
+      "confidence": "HIGH",
+      "code_does": "ADMRDEPT is assigned a randomly generated 3-character value that is unlikely to match any DEPTNO already in the DEPARTMENT table, which has a self-referencing foreign key (ROD) on ADMRDEPT referencing DEPTNO.",
+      "why_it_matters": "The insert will fail with a foreign key violation on every row unless referential-integrity checking is disabled or the randomly chosen ADMRDEPT value happens to match a DEPTNO already present; the procedure has no error handling for this case.",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/popdept.sqlprc",
+          "start_line": 22,
+          "end_line": 22
+        },
+        {
+          "file": "corpus/app/qsqlsrc/department.table",
+          "start_line": 11,
+          "end_line": 14
+        }
+      ]
+    },
+    {
+      "title": "Duplicate DEPTNO primary key collision possible across iterations",
+      "confidence": "MEDIUM",
+      "code_does": "DEPTNO is generated as right('000' || cast(rand()*1000 as int), 3), producing a value in the range 000-999; across five loop iterations there is a non-zero probability of generating the same value twice, which would cause a primary-key violation on the second INSERT.",
+      "why_it_matters": "The procedure has no duplicate-detection or retry logic, and no spec rule addresses uniqueness guarantees or error recovery.",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/popdept.sqlprc",
+          "start_line": 20,
+          "end_line": 20
+        },
+        {
+          "file": "corpus/app/qsqlsrc/department.table",
+          "start_line": 4,
+          "end_line": 9
+        }
+      ]
+    },
+    {
+      "title": "Location value has fixed 'Location ' prefix rather than being purely derived",
+      "confidence": "MEDIUM",
+      "code_does": "The location column is set to the string literal 'Location ' concatenated with the DEPTNO value (e.g. 'Location 042'), so all locations share the same prefix.",
+      "why_it_matters": "The spec only says the location is 'derived from the department identifier', but the specific derivation formula ('Location ' + deptno) is not documented and constrains what valid location values look like.",
+      "citations": [
+        {
+          "file": "corpus/app/qsqlsrc/popdept.sqlprc",
+          "start_line": 23,
+          "end_line": 23
+        }
+      ]
+    }
+  ]
+}
